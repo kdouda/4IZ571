@@ -1,0 +1,41 @@
+{varType App\Model\Entities\Product $product}
+{block content}
+
+<h1 n:block="title">Úprava dimenzí produktu {$product->title}</h1>
+
+{if !empty($product)}
+    <table class="table table-hover mt-4">
+        <thead>
+        <tr>
+            <th scope="col">Název dimenze</th>
+            <th scope="col">Hodnota dimenze</th>
+            <th scope="col">Popis</th>
+            <th scope="col" class="col-xl-1 col-md-2">Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        {var $dimensions = $product->dimensions}
+        {varType App\Model\Entities\ProductDimension[] $dimensions}
+
+        {foreach $dimensions as $dimension}
+            <tr>
+                <td>{$dimension->dimension->name}</td>
+                <td>{$dimension->value}</td>
+                <td>{$dimension->description}</td>
+
+                <td class="text-nowrap">
+                    <a href="{link ProductDimension:edit id => $dimension->productDimensionId}" class="btn btn-sm btn-outline-primary">upravit</a>
+                    <a href="{link ProductDimension:delete id => $dimension->productDimensionId}" class="btn btn-sm btn-outline-danger">smazat</a>
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+
+{else}
+    <p class="text-muted">Produkt neexistuje</p>
+{/if}
+
+<div class="my-4">
+    <a href="{link ProductDimension:add productId => $product->productId}" class="btn btn-primary">přidat dimenzi produktu</a>
+</div>
