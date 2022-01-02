@@ -298,3 +298,14 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-01-02 12:57:26
+
+
+
+CREATE TABLE category_dimension (
+                                    category_id SMALLINT(5) UNSIGNED NOT NULL,
+                                    dimension_id INT NOT NULL,
+
+                                    PRIMARY KEY (category_id, dimension_id),
+                                    CONSTRAINT FOREIGN KEY FK_category_dimension_category (category_id) REFERENCES category(category_id),
+                                    CONSTRAINT FOREIGN KEY FK_category_dimension_dimension (dimension_id) REFERENCES dimension(dimension_id)
+);
