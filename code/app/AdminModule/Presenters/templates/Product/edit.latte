@@ -4,3 +4,33 @@
 <h1 n:block="title">Úprava produktu {$product->title}</h1>
 
 {control productEditForm}
+
+<table class="table table-striped" n:snippet="imageList">
+    <thead>
+        <tr>
+            <th>
+                Fotka
+            </th>
+            <th>
+                Akce
+            </th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        {foreach $product->files as $file}
+            <tr>
+                <td>
+                    <img src="{$basePath}/img/products/{$file->fileName}" style="max-width: 200px; max-height: 200px" alt="Fotografie produktu">
+                </td>
+
+                <td>
+                    <a class="btn btn-danger ajax" n:href="deletePhoto! $product->productId, $file->fileId">
+                        Smazat obrázek
+                    </a>
+                </td>
+            </tr>
+        {/foreach}
+    </tbody>
+</table>

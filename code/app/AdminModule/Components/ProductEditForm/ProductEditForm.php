@@ -3,10 +3,12 @@
 namespace App\AdminModule\Components\ProductEditForm;
 
 use App\Model\Entities\Dimension;
+use App\Model\Entities\File;
 use App\Model\Entities\Product;
 use App\Model\Entities\ProductDimension;
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\DimensionsFacade;
+use App\Model\Facades\FilesFacade;
 use App\Model\Facades\ProductDimensionsFacade;
 use App\Model\Facades\ProductsFacade;
 use Nette;
@@ -44,6 +46,8 @@ class ProductEditForm extends Form
     private $productDimensionsFacade;
     /** @var DimensionsFacade  */
     private $dimensionsFacade;
+    /** @var FilesFacade */
+    private $filesFacade;
 
     /** @var null|Product */
     private $editingProduct = null;
@@ -62,6 +66,7 @@ class ProductEditForm extends Form
         ProductsFacade $productsFacade,
         ProductDimensionsFacade $productDimensionsFacade,
         DimensionsFacade $dimensionsFacade,
+        FilesFacade $filesFacade,
         ?Product $product = null
     ) {
         parent::__construct($parent, $name);
@@ -71,6 +76,7 @@ class ProductEditForm extends Form
         $this->productDimensionsFacade = $productDimensionsFacade;
         $this->dimensionsFacade = $dimensionsFacade;
         $this->editingProduct = $product;
+        $this->filesFacade = $filesFacade;
         $this->createSubcomponents();
     }
 
@@ -138,7 +144,8 @@ class ProductEditForm extends Form
         }
 
         #region obrázek
-        $photoUpload = $this->addUpload('photo', 'Fotka produktu');
+        $photoUpload = $this->addMultiUpload('photo', 'Fotka produktu');
+
         //pokud není zadané ID produktu, je nahrání fotky povinné
         $photoUpload //vyžadování nahrání souboru, pokud není známé productId
         ->addConditionOn($productId, Form::EQUAL, '')
@@ -150,12 +157,15 @@ class ProductEditForm extends Form
         $photoUpload //kontrola typu nahraného souboru, pokud je nahraný
         ->addCondition(Form::FILLED)
             ->addRule(function (Nette\Forms\Controls\UploadControl $photoUpload) {
-                $uploadedFile = $photoUpload->value;
-                if ($uploadedFile instanceof Nette\Http\FileUpload) {
-                    $extension = strtolower($uploadedFile->getImageFileExtension());
-                    return in_array($extension, ['jpg', 'jpeg', 'png']);
+                foreach ($photoUpload->value as $uploadedFile) {
+                    if ($uploadedFile instanceof Nette\Http\FileUpload) {
+                        $extension = strtolower($uploadedFile->getImageFileExtension());
+                        if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                            return false;
+                        }
+                    }
                 }
-                return false;
+                return true;
             }, 'Je nutné nahrát obrázek ve formátu JPEG či PNG.');
         #endregion obrázek
 
@@ -220,9 +230,25 @@ class ProductEditForm extends Form
                 $this->productDimensionsFacade->deleteProductDimension($existingDimension);
             }
 
-            $this->productsFacade->saveProduct($product);
-
             $this->setValues(['productId' => $product->productId]);
+
+            $newPhotos = $values['photo'];
+
+            foreach ($newPhotos as $photo) {
+                if ($photo->isOk() && $photo instanceof Nette\Http\FileUpload && $photo->isImage()) {
+                    $file = new File();
+                    $filename = $this->productsFacade->saveProductPhoto($photo, $product);
+                    $file->fileName = $filename;
+                    $file->fileSize = $photo->size;
+                    $image = $photo->toImage();
+                    $file->width = $image->getWidth();
+                    $file->height = $image->getHeight();
+                    $this->filesFacade->saveFile($file);
+                    $product->addToFiles($file);
+                }
+            }
+
+            $this->productsFacade->saveProduct($product);
 
             //uložení fotky
             if (($values['photo'] instanceof Nette\Http\FileUpload) && ($values['photo']->isOk())) {

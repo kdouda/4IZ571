@@ -4,6 +4,7 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\ProductEditForm\ProductEditForm;
 use App\AdminModule\Components\ProductEditForm\ProductEditFormFactory;
+use App\Model\Facades\FilesFacade;
 use App\Model\Facades\ProductsFacade;
 use Tracy\Debugger;
 
@@ -17,6 +18,8 @@ class ProductPresenter extends BasePresenter
     private $productsFacade;
     /** @var ProductEditFormFactory $productEditFormFactory */
     private $productEditFormFactory;
+    /** @var FilesFacade $filesFacade */
+    private $filesFacade;
 
     /**
      * Akce pro vykreslení seznamu produktů
@@ -89,6 +92,17 @@ class ProductPresenter extends BasePresenter
         return $form;
     }
 
+    public function handleDeletePhoto(int $productId, int $photoId)
+    {
+        $product = $this->productsFacade->getProduct($productId);
+        $file = $this->filesFacade->getFile($photoId);
+
+        $product->removeFromFiles($file);
+        $this->productsFacade->saveProduct($product);
+
+        $this->redrawControl('imageList');
+    }
+
     #region injections
     public function injectProductsFacade(ProductsFacade $productsFacade)
     {
@@ -98,6 +112,11 @@ class ProductPresenter extends BasePresenter
     public function injectProductEditFormFactory(ProductEditFormFactory $productEditFormFactory)
     {
         $this->productEditFormFactory = $productEditFormFactory;
+    }
+
+    public function injectFilesFacade(FilesFacade $filesFacade)
+    {
+        $this->filesFacade = $filesFacade;
     }
     #endregion injections
 
