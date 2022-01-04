@@ -26,6 +26,7 @@
       <path value="$PROJECT_DIR$/vendor/vojir/leanmapper-mappers" />
       <path value="$PROJECT_DIR$/vendor/nextras/forms-rendering" />
       <path value="$PROJECT_DIR$/vendor/facebook/graph-sdk" />
+      <path value="$PROJECT_DIR$/vendor/kollarovic/thumbnail" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2">

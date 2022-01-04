@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d2cea05af8d99f1f53fbd7b6a88fffe",
+    "content-hash": "11931a89137f6c249e62061b8010e880",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -137,6 +137,61 @@
                 "source": "https://github.com/facebook/php-graph-sdk/tree/5.7.0"
             },
             "time": "2018-12-11T22:56:31+00:00"
+        },
+        {
+            "name": "kollarovic/thumbnail",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kollarovic/ThumbnailHelper.git",
+                "reference": "96c771db5f3c608198effb0838e3290ae9ec4ce7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kollarovic/ThumbnailHelper/zipball/96c771db5f3c608198effb0838e3290ae9ec4ce7",
+                "reference": "96c771db5f3c608198effb0838e3290ae9ec4ce7",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "^2.5",
+                "nette/application": "^3.0",
+                "nette/bootstrap": "^3.0",
+                "nette/http": "^3.0",
+                "nette/utils": "^3.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.0",
+                "nette/tester": "~1.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kollarovic\\Thumbnail": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Kollarovic",
+                    "email": "kollarovic@gmail.com"
+                }
+            ],
+            "description": "Generating image thumbnails",
+            "keywords": [
+                "image",
+                "latte",
+                "nette",
+                "thumbnail"
+            ],
+            "support": {
+                "issues": "https://github.com/Kollarovic/ThumbnailHelper/issues",
+                "source": "https://github.com/Kollarovic/ThumbnailHelper/tree/3.0.0"
+            },
+            "time": "2019-05-27T07:13:35+00:00"
         },
         {
             "name": "latte/latte",
@@ -1637,5 +1692,5 @@
     "platform-overrides": {
         "php": "7.2"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }

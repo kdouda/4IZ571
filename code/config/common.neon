@@ -58,3 +58,9 @@ services:
 	- App\Model\Repositories\DimensionRepository
 	- App\Model\Repositories\ProductDimensionRepository
 	- App\Model\Repositories\FileRepository
+
+extensions:
+	thumbnail: Kollarovic\Thumbnail\DI\Extension
+
+thumbnail:
+	thumbPathMask: 'img/thumbs/{filename}-{width}x{height}.{extension}'

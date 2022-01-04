@@ -57,6 +57,13 @@ class ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3
                 0 => __DIR__ . '/..' . '/tharos/leanmapper/src',
             ),
         ),
+        'K' => 
+        array (
+            'Kollarovic\\Thumbnail' => 
+            array (
+                0 => __DIR__ . '/..' . '/kollarovic/thumbnail/src',
+            ),
+        ),
     );
 
     public static $classMap = array (

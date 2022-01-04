@@ -16,6 +16,14 @@ use LeanMapper\Entity;
 class File extends Entity implements \Nette\Security\Resource
 {
 
+  public function getRelativePath() : string
+  {
+      return
+          "img/products/" .
+          $this->fileName
+      ;
+  }
+
   /**
    * @inheritDoc
    */
