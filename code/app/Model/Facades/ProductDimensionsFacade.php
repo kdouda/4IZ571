@@ -4,10 +4,12 @@ namespace App\Model\Facades;
 
 use App\Model\Entities\Category;
 use App\Model\Entities\Dimension;
+use App\Model\Entities\Product;
 use App\Model\Entities\ProductDimension;
 use App\Model\Repositories\CategoryRepository;
 use App\Model\Repositories\DimensionRepository;
 use App\Model\Repositories\ProductDimensionRepository;
+use Tracy\Debugger;
 
 /**
  * Class DimensionsFacade - fasáda pro využívání dimenzí z presenterů
@@ -32,6 +34,31 @@ class ProductDimensionsFacade
     public function getProductDimension(int $id): ProductDimension
     {
         return $this->productDimensionRepository->find($id);
+    }
+
+    /**
+     * Finds value of one distinct product dimension.
+     *
+     * @param Product $product
+     * @param Dimension $dimension
+     * @return string|null
+     */
+    public function getProductDimensionValue(Product $product, Dimension $dimension) : ?string
+    {
+        $dimensions = $this->findProductDimensions(
+            [
+                "product_id"   => $product->productId,
+                "dimension_id" => $dimension->dimensionId
+            ],
+            null,
+            1
+        );
+
+        if (!empty($dimensions)) {
+            return reset($dimensions)->value;
+        }
+
+        return null;
     }
 
     /**
@@ -78,6 +105,19 @@ class ProductDimensionsFacade
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * @param Product $product
+     * @return ProductDimension[]
+     */
+    public function findProductDimensionsOfProduct(Product $product) : array
+    {
+        return $this->findProductDimensions(
+            [
+                "product_id"   => $product->productId,
+            ]
+        );
     }
 
 }

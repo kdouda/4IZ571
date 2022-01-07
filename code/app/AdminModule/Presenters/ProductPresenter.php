@@ -4,7 +4,9 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\ProductEditForm\ProductEditForm;
 use App\AdminModule\Components\ProductEditForm\ProductEditFormFactory;
+use App\Model\Facades\FilesFacade;
 use App\Model\Facades\ProductsFacade;
+use Tracy\Debugger;
 
 /**
  * Class ProductPresenter
@@ -16,6 +18,8 @@ class ProductPresenter extends BasePresenter
     private $productsFacade;
     /** @var ProductEditFormFactory $productEditFormFactory */
     private $productEditFormFactory;
+    /** @var FilesFacade $filesFacade */
+    private $filesFacade;
 
     /**
      * Akce pro vykreslení seznamu produktů
@@ -54,42 +58,49 @@ class ProductPresenter extends BasePresenter
      */
     public function createComponentProductEditForm(): ProductEditForm
     {
-        $form = $this->productEditFormFactory->create();
+        $product = null;
+
+        $id = $this->presenter->getParameter("id");
+
+        if ($id) {
+            try {
+                $product = $this->productsFacade->getProduct($id);
+            } catch (\Exception $e) {
+            }
+        }
+
+        $form = $this->productEditFormFactory->create($product);
+
         $form->onCancel[] = function () {
             $this->redirect('default');
         };
+
         $form->onFinished[] = function ($message = null) {
             if (!empty($message)) {
                 $this->flashMessage($message);
             }
             $this->redirect('default');
         };
+
         $form->onFailed[] = function ($message = null) {
             if (!empty($message)) {
                 $this->flashMessage($message, 'error');
             }
             $this->redirect('default');
         };
+
         return $form;
     }
 
-    public function renderDimension(int $id) : void
+    public function handleDeletePhoto(int $productId, int $photoId)
     {
-        try {
-            $product = $this->productsFacade->getProduct($id);
-        } catch (\Exception $e) {
-            $this->flashMessage('Požadovaný produkt nebyl nalezen.', 'error');
-            $this->redirect('default');
-        }
+        $product = $this->productsFacade->getProduct($productId);
+        $file = $this->filesFacade->getFile($photoId);
 
-        if (!$this->user->isAllowed($product, 'edit')) {
-            $this->flashMessage('Požadovaný produkt nemůžete upravovat.', 'error');
-            $this->redirect('default');
-        }
+        $product->removeFromFiles($file);
+        $this->productsFacade->saveProduct($product);
 
-//        $form = $this->getComponent('productEditForm');
-//        $form->setDefaults($product);
-        $this->template->product = $product;
+        $this->redrawControl('imageList');
     }
 
     #region injections
@@ -101,6 +112,11 @@ class ProductPresenter extends BasePresenter
     public function injectProductEditFormFactory(ProductEditFormFactory $productEditFormFactory)
     {
         $this->productEditFormFactory = $productEditFormFactory;
+    }
+
+    public function injectFilesFacade(FilesFacade $filesFacade)
+    {
+        $this->filesFacade = $filesFacade;
     }
     #endregion injections
 

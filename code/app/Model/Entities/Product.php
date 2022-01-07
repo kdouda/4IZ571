@@ -16,6 +16,7 @@ use LeanMapper\Entity;
  * @property bool $available = true
  * @property Category[] $categories m:hasMany
  * @property ProductDimension[] $dimensions m:belongsToMany(product_id:product_dimension)
+ * @property File[] $files m:hasMany(product_id:product_images)
  */
 class Product extends Entity implements \Nette\Security\Resource{
 
