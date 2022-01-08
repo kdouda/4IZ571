@@ -1,5 +1,24 @@
+{block title}
+    Registrace uživatele
+{/block}
+
 {block content}
 
-<h1 n:block="title">Registrace uživatele</h1>
 
-{control userRegistrationForm}
+<div class="col d-flex justify-content-center">
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Přihlášení uživatele</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Zde začíná Vaše lamová adventura...</h6>
+            <p class="card-text">
+                {control userRegistrationForm}
+            </p>
+            <hr class="mt-2 mb-2"/>
+            <a href="{plink login}" class="btn btn-xs btn-default btn-sm btn-outline-primary">Již účet mám</a>
+        </div>
+    </div>
+
+</div>
+
+

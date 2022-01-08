@@ -2,6 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
+use Ublaboo\DataGrid\DataGrid;
 use App\AdminModule\Components\ProductEditForm\ProductEditForm;
 use App\AdminModule\Components\ProductEditForm\ProductEditFormFactory;
 use App\Model\Facades\FilesFacade;
@@ -91,6 +92,22 @@ class ProductPresenter extends BasePresenter
 
         return $form;
     }
+
+    public function createComponentGrid($name)
+    {
+        $grid = new DataGrid($this, $name);
+
+        $grid->setPrimaryKey('product_id');
+        $grid->setDataSource($this->productsFacade->getDataGridConnection());
+        $grid->addColumnText('title', 'Název')->setSortable();
+        $grid->addColumnText('price', 'Cena')->setSortable();
+
+        $grid->addColumnText('edit', 'Editovat')
+             ->setTemplate(__DIR__ . '/templates/Product/grid/edit.latte');
+
+        return $grid;
+    }
+
 
     public function handleDeletePhoto(int $productId, int $photoId)
     {

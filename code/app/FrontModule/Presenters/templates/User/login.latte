@@ -1,7 +1,21 @@
+{block title}
+Přihlášení uživatele
+{/block}
+
 {block content}
 
-<h1 n:block="title">Přihlášení uživatele</h1>
+<div class="col d-flex justify-content-center">
 
-{control userLoginForm}
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Přihlášení uživatele</h5>
+            <p class="card-text">
+                {control userLoginForm}
+            </p>
+            <hr class="mt-2 mb-2"/>
+            <a href="{plink forgottenPassword}" class="btn btn-xs btn-default btn-sm btn-outline-primary">Zapomněl(a) jsem heslo</a>
+            <a href="{plink register}" class="btn btn-sm btn-outline-secondary">Vytvořit účet</a>
+        </div>
+    </div>
 
-<a href="{plink forgottenPassword}">Zapomněl(a) jsem heslo</a>
+</div>

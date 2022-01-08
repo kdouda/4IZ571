@@ -22,7 +22,8 @@
 		"vojir/leanmapper-mappers": "^1.0",
 		"facebook/graph-sdk": "^5.7",
 		"nextras/forms-rendering": "^1.1",
-		"kollarovic/thumbnail": "^3.0"
+		"kollarovic/thumbnail": "^3.0",
+		"ublaboo/datagrid": "^6.9"
 	},
 	"autoload": {
 		"psr-4": {
