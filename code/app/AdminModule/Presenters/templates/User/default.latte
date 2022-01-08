@@ -1,0 +1,20 @@
+{block content}
+
+<h1 n:block="title">Správa uživatelů</h1>
+
+{control grid}
+
+{block additionalScripts}
+     <script >
+         document.addEventListener("DOMContentLoaded", function(){
+             $(document).off('click', '.btn-delete-user').on('click', '.btn-delete-user',  function (e) {
+                 e.stopPropagation();
+
+                 if (confirm("Opravdu chcete smazat tohoto uživatele?")) {
+                     window.location = $(this).find('a').attr('href');
+                 }
+             });
+         });
+
+     </script>
+{/block}
