@@ -27,6 +27,12 @@
       <path value="$PROJECT_DIR$/vendor/nextras/forms-rendering" />
       <path value="$PROJECT_DIR$/vendor/facebook/graph-sdk" />
       <path value="$PROJECT_DIR$/vendor/kollarovic/thumbnail" />
+      <path value="$PROJECT_DIR$/vendor/ublaboo/datagrid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/inflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/contributte/application" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2">

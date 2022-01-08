@@ -172,6 +172,9 @@ class ProductEditForm extends Form
         $this->addSubmit('ok', 'uložit')
             ->onClick[] = function (SubmitButton $button) {
             $values = $this->getValues('array');
+
+            Debugger::barDump($values);
+
             if (!empty($values['productId'])) {
                 try {
                     $product = $this->productsFacade->getProduct($values['productId']);
@@ -186,11 +189,11 @@ class ProductEditForm extends Form
             $product->assign($values, ['title', 'url', 'description', 'available']);
             $categories = [];
 
+            Debugger::barDump($product);
+
             foreach ($values["categories"] as $category) {
                 $categories[] = $this->categoriesFacade->getCategory($category);
             }
-
-            $product->replaceAllCategories($categories);
 
             $product->price = floatval($values['price']);
             $dimensions = [];
@@ -230,9 +233,14 @@ class ProductEditForm extends Form
                 $this->productDimensionsFacade->deleteProductDimension($existingDimension);
             }
 
-            $this->setValues(['productId' => $product->productId]);
-
             $newPhotos = $values['photo'];
+
+            if (empty($values["productId"])) {
+                $this->productsFacade->saveProduct($product);
+                $this->setValues(['productId' => $product->productId]);
+            }
+
+            $product->replaceAllCategories($categories);
 
             foreach ($newPhotos as $photo) {
                 if ($photo->isOk() && $photo instanceof Nette\Http\FileUpload && $photo->isImage()) {

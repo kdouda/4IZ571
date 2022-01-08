@@ -75,7 +75,7 @@
     {block footer}
         <!-- FOOTER -->
         <footer class="fixed-bottom mt-5 bg-primary p-2 text-center text-light">
-            Copyright Llamaworkers 2022
+            &copy; Llamaworkers 2022
         </footer>
     {/block}
 </div>
@@ -129,6 +129,11 @@
             integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
             crossorigin="anonymous"></script>
 {/block}
+
+{ifset pageScripts}
+    {include pageScripts}
+{/ifset}
+
 </body>
 </html>
 

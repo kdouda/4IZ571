@@ -11,12 +11,22 @@ use Nette\Application\UI\Template;
 use Nette\Http\Session;
 use Nette\Http\SessionSection;
 use Nette\Security;
+use Tracy\Debugger;
 
 /**
  * Class CartControl
  * @package App\FrontModule\Components\CartControl
  */
-class ProductCard extends Control{
+class ProductCard extends Control
+{
+
+    /** @var Security\User  */
+    private $currentUser;
+
+    public function __construct(Security\User $user)
+    {
+        $this->currentUser = $user;
+    }
 
     /**
      * Akce renderující šablonu s odkazem pro zobrazení harmonogramu na desktopu
@@ -24,7 +34,8 @@ class ProductCard extends Control{
      */
     public function render($product):void {
         $template=$this->prepareTemplate('default');
-        $template->product=$product;
+        $template->product = $product;
+        $template->canEdit = $this->currentUser->isLoggedIn() && $this->currentUser->isAllowed($product, 'edit');
         $template->render();
     }
 

@@ -109,6 +109,10 @@ class ProductsFacade{
     return null;
   }
 
+  public function getDataGridConnection()
+  {
+      return $this->productRepository->getConnection();
+  }
 
   public function __construct(ProductRepository $productRepository){
     $this->productRepository=$productRepository;

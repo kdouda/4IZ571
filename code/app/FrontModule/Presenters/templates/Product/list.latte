@@ -1,15 +1,36 @@
 {varType App\Model\Entities\Product[] $products}
+{varType App\Model\Entities\Category[] $categories}
 {block content}
 
 <h1 n:block="title">Nabízené produkty</h1>
 
-<section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ml-2 mr-2">
-    {foreach $products as $product}
-        {control productCard $product}
-    {/foreach}
+<div class="row">
+    <aside class="col col-lg-2">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Kategorie
+            </div>
 
-</section>
+            <div class="list-group list-group-flush">
 
-<section class="row" n:if="!empty($products)">
+                {foreach $categories as $category}
+                    {* z hlediska SEO by bylo výrazně lepší, aby místo CategoryID zde byl nějaký string - webalizovaný *}
+                    <a href="{plink this category => $category->categoryId}" class="list-group-item list-group-item-action">{$category->title}</a>
+                {/foreach}
 
-</section>
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                    The current link item
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <section class="col">
+        <article class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ml-2 mr-2">
+            {foreach $products as $product}
+                {control productCard $product}
+            {/foreach}
+        </article>
+    </section>
+</div>
+
