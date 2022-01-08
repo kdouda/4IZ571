@@ -101,6 +101,9 @@ class ProductPresenter extends BasePresenter
         $grid->setDataSource($this->productsFacade->getDataGridConnection());
         $grid->addColumnText('title', 'Název')->setSortable();
         $grid->addColumnText('price', 'Cena')->setSortable();
+        $grid->addColumnText('featured', 'Promované')->setRenderer(function ($item) {
+            return $item->featured ? 'Ano' : 'Ne';
+        })->setSortable();
 
         $grid->addColumnText('edit', 'Editovat')
              ->setTemplate(__DIR__ . '/templates/Product/grid/edit.latte');
