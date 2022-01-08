@@ -2,8 +2,11 @@
 
 namespace App\FrontModule\Presenters;
 
+use App\FrontModule\Components\CartControl\ProductCard;
+use App\FrontModule\Components\ProductCard\ProductCardFactory;
 use App\FrontModule\Components\ProductCartForm\ProductCartFormFactory;
 use App\Model\Facades\ProductsFacade;
+use Nette;
 use Nette\Application\BadRequestException;
 
 /**
@@ -16,6 +19,11 @@ class ProductPresenter extends BasePresenter{
   private $productsFacade;
   /** @var ProductCartFormFactory $productCartFormFactory */
   private $productCartFormFactory;
+
+    /**
+     * @var ProductCardFactory $productCardFactory
+     */
+  private $productCardFactory;
 
   /** @persistent */
   public $category;
@@ -35,7 +43,12 @@ class ProductPresenter extends BasePresenter{
     $this->template->product = $product;
   }
 
-  /**
+  protected function createComponentProductCard(): ProductCard
+  {
+      return $this->productCardFactory->create();
+  }
+
+    /**
    * Akce pro vykreslení přehledu produktů
    */
   public function renderList():void {
@@ -50,6 +63,10 @@ class ProductPresenter extends BasePresenter{
 
   public function injectProductCartFormFactory(ProductCartFormFactory $productCartFormFactory):void {
     $this->productCartFormFactory=$productCartFormFactory;
+  }
+
+  public function injectProductCardFactory(ProductCardFactory $productCardFactory):void {
+      $this->productCardFactory=$productCardFactory;
   }
   #endregion injections
 }

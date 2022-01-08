@@ -1,8 +1,69 @@
 {varType App\Model\Entities\Product $product}
 {block content}
+<section class="row {*row-cols-1 row-cols-sm-2 row-cols-md-3*} g-3 ml-2 mr-2">
+        <div class="col-md-6 col-lg-6 bg-primary col-sm-12">
+            <div class="row">
 
-<h1 n:block="title">{$product->title}</h1>
+            </div>
+            <div class="row">
+                <div class="col-3 bg-dark align-items-stretch align-content-stretch">
+                    <div class="row">
+                        <div class="col m-1">
+                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m-1">
+                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m-1">
+                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 bg-light">
+                    <img class="img-fluid mw-75 mh-75 bg-warning rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                </div>
+            </div>
 
+        </div>
+        <div class="col-md-6 bg-danger col-lg-6 col-sm-12">
+
+            <div class="row h-25">
+                <div class="col bg-warning m-1">
+                    <h1 n:block="title">{$product->title}</h1>
+                </div>
+            </div>
+            <div class="row h-75">
+
+                <div class="col bg-warning m-1">
+                    <p>
+                        {$product->description}
+                    </p>
+                </div>
+                <div class="col bg-warning m-1">
+                    <div class="row h-50">
+                        <div class="col bg-light m-1">
+
+                        </div>
+                    </div>
+                    <div class="row h-25">
+                        <div class="col bg-light m-1">
+
+                        </div>
+                    </div>
+                    <div class="row h-25">
+                        <div class="col bg-light m-1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
 {foreach $product->files as $file}
     <img src="{$basePath}/img/products/{$file->fileName}" style="max-width: 200px; max-height: 200px" alt="Fotografie produktu">
 {/foreach}
