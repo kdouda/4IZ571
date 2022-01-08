@@ -2,11 +2,11 @@
 
 namespace App\FrontModule\Components\ProductCard;
 
-use App\FrontModule\Components\CartControl\ProductCard;
+use App\FrontModule\Components\ProductCard\ProductCard;
 
 /**
  * Interface CartControlFactory
- * @package App\FrontModule\Components\CartControl
+ * @package App\FrontModule\Components
  */
 interface ProductCardFactory{
 

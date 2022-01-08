@@ -2,11 +2,11 @@
 {varType App\Model\Entities\Category[] $categories}
 {block content}
 
-<h1 n:block="title">Nabízené produkty</h1>
+
 
 <div class="row">
-    <aside class="col col-lg-2">
-        <div class="card" style="width: 18rem;">
+    <aside class="col-lg-2 col-sm-3">
+        <div class="card">
             <div class="card-header">
                 Kategorie
             </div>
@@ -21,8 +21,8 @@
             </div>
         </div>
     </aside>
-
     <section class="col">
+        <h1 n:block="title" class="text-center">Nabízené produkty</h1>
         <article class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ml-2 mr-2">
             {foreach $products as $product}
                 {control productCard $product}
