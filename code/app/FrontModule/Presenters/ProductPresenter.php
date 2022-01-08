@@ -59,24 +59,18 @@ class ProductPresenter extends BasePresenter
      */
     public function renderList(int $category = null, int $limit = null, int $offset = null): void
     {
+        $categories = [];
+
         $productsQuery = [
             'order' => 'title'
         ];
 
         if ($category) {
-            $productsQuery['category_id'] = $category;
-        }
-
-        if ($limit) {
-            $productsQuery['limit'] = $limit;
-        }
-
-        if ($offset) {
-            $productsQuery['offset'] = $offset;
+            $categories[] = $category;
         }
 
         //TODO tady by mělo přibýt filtrování podle kategorie, stránkování atp.
-        $this->template->products = $this->productsFacade->findProducts($productsQuery);
+        $this->template->products = $this->productsFacade->filterAllBy($productsQuery, $categories, $limit, $offset);
         $this->template->categories = $this->categoriesFacade->findCategories(['order' => 'title']);
         $this->template->currentCategory = $category;
     }
