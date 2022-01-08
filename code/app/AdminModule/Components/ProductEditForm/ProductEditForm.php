@@ -113,6 +113,9 @@ class ProductEditForm extends Form
             //->setPrompt('--vyberte kategorie--')
             ->setRequired(false);
 
+        $this->addCheckbox('featured', 'Promovaný')
+            ->setDefaultValue(false);
+
         #endregion kategorie
 
         $this->addTextArea('description', 'Popis produktu')
@@ -186,10 +189,8 @@ class ProductEditForm extends Form
                 $product = new Product();
             }
 
-            $product->assign($values, ['title', 'url', 'description', 'available']);
+            $product->assign($values, ['title', 'url', 'description', 'available', 'featured']);
             $categories = [];
-
-            Debugger::barDump($product);
 
             foreach ($values["categories"] as $category) {
                 $categories[] = $this->categoriesFacade->getCategory($category);
@@ -318,7 +319,8 @@ class ProductEditForm extends Form
                 'title' => $values->title,
                 'url' => $values->url,
                 'description' => $values->description,
-                'price' => $values->price
+                'price' => $values->price,
+                'featured' => $values->featured
             ];
         }
         parent::setDefaults($values, $erase);
