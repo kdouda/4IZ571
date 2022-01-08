@@ -2,6 +2,8 @@
 
 namespace App\AdminModule\Presenters;
 
+use App\AdminModule\Components\UserEditForm\UserEditForm;
+use App\AdminModule\Components\UserEditForm\UserEditFormFactory;
 use App\Model\Facades\UsersFacade;
 use Ublaboo\DataGrid\DataGrid;
 use App\AdminModule\Components\ProductEditForm\ProductEditForm;
@@ -19,6 +21,9 @@ class UserPresenter extends BasePresenter
     /** @var UsersFacade @inject */
     public $usersFacade;
 
+    /** @var UserEditFormFactory @inject */
+    public $userEditFormFactory;
+
     /**
      * Akce pro vykreslení seznamu produktů
      */
@@ -35,39 +40,30 @@ class UserPresenter extends BasePresenter
     public function renderEdit(int $id): void
     {
         try {
-            $product = $this->productsFacade->getProduct($id);
+            $user = $this->usersFacade->getUser($id);
         } catch (\Exception $e) {
-            $this->flashMessage('Požadovaný produkt nebyl nalezen.', 'error');
-            $this->redirect('default');
-        }
-        if (!$this->user->isAllowed($product, 'edit')) {
-            $this->flashMessage('Požadovaný produkt nemůžete upravovat.', 'error');
+            $this->flashMessage('Požadovaný uživatel nebyl nalezen.', 'error');
             $this->redirect('default');
         }
 
-        $form = $this->getComponent('productEditForm');
-        $form->setDefaults($product);
-        $this->template->product = $product;
+        if (!$this->user->isAllowed($user, 'edit')) {
+            $this->flashMessage('Požadovaného uživatele nemůžete upravovat.', 'error');
+            $this->redirect('default');
+        }
+
+        $form = $this->getComponent('userEditForm');
+        $form->setDefaults($user);
+
+        $this->template->editingUser = $user;
     }
 
     /**
      * Formulář na editaci produktů
      * @return ProductEditForm
      */
-    public function createComponentProductEditForm(): ProductEditForm
+    public function createComponentUserEditForm(): UserEditForm
     {
-        $product = null;
-
-        $id = $this->presenter->getParameter("id");
-
-        if ($id) {
-            try {
-                $product = $this->productsFacade->getProduct($id);
-            } catch (\Exception $e) {
-            }
-        }
-
-        $form = $this->productEditFormFactory->create($product);
+        $form = $this->userEditFormFactory->create();
 
         $form->onCancel[] = function () {
             $this->redirect('default');
@@ -130,4 +126,6 @@ class UserPresenter extends BasePresenter
 
         $this->redirect('default');
     }
+
+
 }
