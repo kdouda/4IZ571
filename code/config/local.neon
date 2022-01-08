@@ -6,9 +6,11 @@ parameters:
     database:
         driver: mysqli
         host: localhost
-        username: eshop
-        password: DheVscY4Gb8Npyqb
-        database: eshop
+        username: root
+#        username: eshop
+#        password: DheVscY4Gb8Npyqb
+        password:
+        database: eshop2
         charset: utf8mb4
 
     facebook:
