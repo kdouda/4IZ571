@@ -48,6 +48,7 @@ services:
 	- App\Model\Facades\DimensionsFacade
 	- App\Model\Facades\ProductDimensionsFacade
 	- App\Model\Facades\CartFacade
+	- App\Model\Facades\FilesFacade
 
 	- App\Model\Repositories\CategoryRepository
 	- App\Model\Repositories\ForgottenPasswordRepository
@@ -60,3 +61,10 @@ services:
 	- App\Model\Repositories\ProductDimensionRepository
 	- App\Model\Repositories\CartRepository
 	- App\Model\Repositories\CartItemRepository
+	- App\Model\Repositories\FileRepository
+
+extensions:
+	thumbnail: Kollarovic\Thumbnail\DI\Extension
+
+thumbnail:
+	thumbPathMask: 'img/thumbs/{filename}-{width}x{height}.{extension}'

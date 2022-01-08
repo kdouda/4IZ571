@@ -98,13 +98,15 @@ class ProductsFacade{
    * @param Product $product
    * @throws \Exception
    */
-  public function saveProductPhoto(FileUpload $fileUpload, Product &$product) {
+  public function saveProductPhoto(FileUpload $fileUpload, Product &$product) : ?string {
     if ($fileUpload->isOk() && $fileUpload->isImage()){
-      $fileExtension=strtolower($fileUpload->getImageFileExtension());
-      $fileUpload->move(__DIR__.'/../../../www/img/products/'.$product->productId.'.'.$fileExtension);
-      $product->photoExtension=$fileExtension;
-      $this->saveProduct($product);
+      //$fileExtension=strtolower($fileUpload->getImageFileExtension());
+      $fileName = time() . "_" . $product->productId . "_" . $fileUpload->getSanitizedName();
+      $fileUpload->move(__DIR__ . '/../../../www/img/products/' . $fileName);
+      return $fileName;
     }
+
+    return null;
   }
 
 
