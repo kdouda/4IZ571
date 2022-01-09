@@ -3,7 +3,7 @@
 namespace App\FrontModule\Presenters;
 
 use App\FrontModule\Components\CartControl\CartControl;
-use App\FrontModule\Components\ProductCard;
+use App\FrontModule\Components\ProductCard\ProductCard;
 use App\FrontModule\Components\ProductCard\ProductCardFactory;
 use App\FrontModule\Components\ProductCartForm\ProductCartForm;
 use App\FrontModule\Components\ProductCartForm\ProductCartFormFactory;
