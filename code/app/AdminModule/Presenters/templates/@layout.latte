@@ -31,6 +31,9 @@
 				<li n:class="$presenter->isLinkCurrent('Dashboard:*')?active, nav-item">
 					<a class="nav-link" href="{plink Dashboard:default}">Dashboard</a>
 				</li>
+				<li n:class="$presenter->isLinkCurrent('User:*')?active, nav-item" n:if="$user->isAllowed('Admin:User','default')">
+					<a class="nav-link" href="{plink User:default}">Uživatelé</a>
+				</li>
 				<li n:class="$presenter->isLinkCurrent('Product:*')?active, nav-item" n:if="$user->isAllowed('Admin:Product','default')">
 					<a class="nav-link" href="{plink Product:default}">Produkty</a>
 				</li>
@@ -86,6 +89,10 @@
 			});
 		</script>
 	{/block}
+
+	{ifset additionalScripts}
+		{include additionalScripts}
+	{/ifset}
 </body>
 </html>
 

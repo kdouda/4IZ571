@@ -14,6 +14,7 @@ use LeanMapper\Entity;
  * @property float $price
  * @property string $photoExtension = ''
  * @property bool $available = true
+ * @property bool $featured = false
  * @property Category[] $categories m:hasMany
  * @property ProductDimension[] $dimensions m:belongsToMany(product_id:product_dimension)
  * @property File[] $files m:hasMany(product_id:product_images)

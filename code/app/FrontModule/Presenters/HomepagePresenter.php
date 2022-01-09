@@ -7,6 +7,7 @@ use App\FrontModule\Components\ProductCard\ProductCard;
 use App\FrontModule\Components\ProductCard\ProductCardFactory;
 use App\FrontModule\Components\ProductCartForm\ProductCartForm;
 use App\FrontModule\Components\ProductCartForm\ProductCartFormFactory;
+use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
 use Nette\Application\UI\Multiplier;
 
@@ -24,10 +25,13 @@ class HomepagePresenter extends BasePresenter
      */
     private $productCartFormFactory;
 
+    /** @var CategoriesFacade $categoriesFacade @inject */
+    public $categoriesFacade;
+
     public function renderDefault(): void
     {
-        //TODO tady by mělo přibýt filtrování podle kategorie, stránkování atp.
-        $this->template->featuredProducts = $this->productsFacade->findProducts(['order'=>'title']);
+        $this->template->featuredProducts = $this->productsFacade->findProducts(['order'=>'title', 'featured' => 1], null, 10);
+        $this->template->featuredCategories = $this->categoriesFacade->findCategories(['order' => 'title']);
         $this->template->isLoggedIn = $this->user->isLoggedIn();
     }
 
