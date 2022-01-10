@@ -1,16 +1,16 @@
 {varType App\Model\Entities\Product $product}
 {block content}
-<section class="row {*row-cols-1 row-cols-sm-2 row-cols-md-3*} g-3 ml-2 mr-2">
-        <div class="col-md-6 col-lg-6 bg-primary col-sm-12">
+<section class="row {*row-cols-1 row-cols-sm-2 row-cols-md-3*} g-3 product-detail no-gutters">
+        <div class="col-md-6 col-lg-6 col-sm-12">
             <div class="row">
 
             </div>
             <div class="row">
-                <div class="col-3 bg-dark justify-content-between d-flex flex-column" style="max-height: 400px; overflow-y: auto;">
+                <div class="col-3  justify-content-between d-flex flex-column product-detail-thumbnail text-center p-0" >
                     {foreach $product->files as $photo}
                         <div class="row">
-                            <div class="col m-1">
-                                <img class="img-fluid img-click-expand rounded {if $iterator->first}active{/if}"
+                            <div class="col m-1 product-detail-thumbnail-item p-0">
+                                <img class=" img-fluid img-click-expand rounded w-100 {if $iterator->first}active{/if}"
                                      style="max-height: 100px"
                                      src="{$photo->getRelativePath()|thumbnail:300,300}"
                                      data-full-url="{$basePath}/{$photo->getRelativePath()}"
@@ -19,9 +19,9 @@
                         </div>
                     {/foreach}
                 </div>
-                <div class="col-9 bg-light">
+                <div class="col-9  product-detail-img">
                     {if $product->files}
-                        <img class="img-fluid mw-75 mh-75 bg-warning rounded img-click-receive"
+                        <img class=" w-100 h-100  rounded img-click-receive"
                              src="{$basePath}/{$product->files[0]->getRelativePath()}"
                         >
                     {/if}
@@ -29,18 +29,18 @@
             </div>
 
         </div>
-        <div class="col-md-6 bg-danger col-lg-6 col-sm-12">
+        <div class="col-md-6  col-lg-6 col-sm-12">
 
-            <div class="row h-25">
-                <div class="col bg-warning m-1">
+            <div class="row h-25 text-center align-content-center mt-2 border bg-light">
+                <div class="col  m-1">
                     <h2 n:block="title">{$product->title}</h2>
                 </div>
             </div>
-            <div class="row h-75">
+            <div class="row h-75 border bg-light">
 
-                <div class="col bg-warning m-1">
+                <div class="col border-right p-1">
                     {if $product->dimensions}
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped ">
                             <thead>
                             <tr>
                                 <th>Parametr</th>
@@ -63,21 +63,21 @@
                         </table>
                     {/if}
                 </div>
-                <div class="col bg-warning m-1">
+                <div class="col  m-1 ">
                     <div class="row h-50">
-                        <div class="col bg-light m-1">
+                        <div class="col  m-1">
                             <p>
                                 {$product->description}
                             </p>
                         </div>
                     </div>
                     <div class="row h-25">
-                        <div class="col bg-light m-1">
+                        <div class="col  m-1">
 
                         </div>
                     </div>
                     <div class="row h-25">
-                        <div class="col bg-light m-1">
+                        <div class="col  m-1">
                         </div>
                     </div>
                 </div>
@@ -85,10 +85,6 @@
         </div>
 
 </section>
-
-<p>
-    {$product->description}
-</p>
 
 {block pageScripts}
 

@@ -1,3 +1,8 @@
+body{
+    height: 1vh;
+    background-color: #eeeeee;
+}
+
 .row{
     margin-right: 0px;
     margin-left:0px;
@@ -12,6 +17,9 @@
     line-height: 1;
 }
 
+.product-detail-thumbnail{
+    background-color: #777777;
+}
 
 
 .card-text{
@@ -23,12 +31,21 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4; /* number of lines to show */
 }
-}
 @media(min-width: 992px) {
 
     .navbar-brand{
         font-size: 2rem;
         margin:0px;
+    }
+
+    .product-detail-img {
+        height: 500px;
+        width: 500px;
+    }
+
+    .product-detail-thumbnail{
+        height: 500px;
+        overflow-y: auto
     }
 
     .card-image {
@@ -46,18 +63,53 @@
         height: 150px;
         width: 150px;
     }
+
+    .product-detail-thumbnail{
+        height: 400px;
+        overflow-y: auto
+    }
+
+    .product-detail-img {
+        height: 400px;
+        width:  400px;
+    }
 }
 @media(min-width: 576px) {
     .card-image {
         height: 150px;
         width: 150px;
     }
+
+    .product-detail-thumbnail{
+        height: 400px;
+        overflow-y: auto
+    }
+
+    .product-detail-img {
+        height: 400px;
+        width:  400px;
+    }
+
+
 }
 
 @media(max-width: 576px) {
     .card-image {
         height: 150px;
         width: 150px;
+    }
+
+    .product-detail-thumbnail{
+        height: 300px;
+        overflow-y: auto
+    }
+
+    .product-detail-img {
+        height: 300px;
+        width: auto;
+    }
+    .fixed-bottom{
+        position:sticky;
     }
 }
 
