@@ -41,7 +41,12 @@ class CartControl extends Control{
      */
     public function renderList():void {
         $template=$this->prepareTemplate('list');
-        $template->cart=$this->cart;
+        $template->cart = $this->cart;
+
+        $template->totalItemsCount = array_reduce($this->cart->items, function ($carry, CartItem $cartItem) {
+            return $carry + $cartItem->count;
+        }, 0);
+
         $template->render();
     }
 

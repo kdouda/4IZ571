@@ -1,23 +1,86 @@
 {varType App\Model\Entities\Cart $cart}
 
 {if empty($cart->items)}
-    košík je prázdný
-
+    <div class="jumbotron">
+        <h1 class="display-4">Ach ne, jsem tak prázdný...</h1>
+        <p class="lead">
+            V košíku nemáte žádné zboží.
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{plink Product:list}" role="button">Seznam produktů</a>
+            <a class="btn btn-primary btn-lg" href="" role="button">Mé objednávky</a>
+        </p>
+    </div>
 
 {else}
-    <table class="table table-hover">
+    {var $cartCount = count($cart->items)}
 
-        {foreach $cart->items as $item}
-            <tr>
-                <th>{$item->product->title}</th>
-                <td>{$item->count}</td>
-                <td>
-                    <a href="{link remove! $item->cartItemId}">odebrat</a>
-                </td>
-            </tr>
-        {/foreach}
+    <div class="jumbotron">
+        <h1 class="display-4">Košík</h1>
+        <p class="lead">
+            V košíku máte celkem {$cartCount} produkt{if $cartCount >= 5}ů{elseif $cartCount >= 2}y{/if},
+            {$totalItemsCount} kus{if $cartCount >= 5}ů{elseif $cartCount >= 2}y{/if}.
+            Dohromady by Vás to stálo <b>{$cart->getTotalPrice()|number:2} Kč</b>.
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/cart/" role="button">Objednat</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Smazat vše</a>
+            <a class="btn btn-primary btn-lg" href="" role="button">Mé objednávky</a>
+            <a class="btn btn-primary btn-lg" href="{plink Product:list}" role="button">Seznam produktů</a>
+        </p>
+    </div>
 
-    </table>
+    <div class="container">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Produkt
+                    </th>
 
+                    <th>
+                        Název
+                    </th>
 
+                    <th>
+                        Počet kusů
+                    </th>
+
+                    <th>
+                        Jednotková cena
+                    </th>
+
+                    <th>
+                        Celková cena
+                    </th>
+
+                    <td>
+                        Možnosti
+                    </td>
+                </tr>
+            </thead>
+
+            {foreach $cart->items as $item}
+                <tr>
+                    <th>
+                        {if $item->product->files}
+                            <img src="{$item->product->files[0]->getRelativePath()|thumbnail:100,100}">
+                            {else}
+                            <img class="card-image" style="max-width: 100px; max-height: 100px;" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png" />
+                        {/if}
+                    </th>
+                    <th>
+                        {$item->product->title}
+                    </th>
+                    <td>{$item->count}</td>
+                    <td>{$item->product->price|number:2} Kč</td>
+                    <td>{$item->count * $item->product->price|number:2} Kč</td>
+                    <td>
+                        <a href="{link remove! $item->cartItemId}">odebrat</a>
+                    </td>
+                </tr>
+            {/foreach}
+
+        </table>
+    </div>
 {/if}

@@ -6,31 +6,25 @@
 
             </div>
             <div class="row">
-                <div class="col-3 bg-dark justify-content-between d-flex flex-column">
-                    {foreach $product->files as $file}
+                <div class="col-3 bg-dark justify-content-between d-flex flex-column" style="max-height: 400px; overflow-y: auto;">
+                    {foreach $product->files as $photo}
                         <div class="row">
                             <div class="col m-1">
-{*                                <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">*}
-                                <img src="{$basePath}/img/products/{$file->fileName}" style="max-width: 200px; max-height: 200px" alt="Fotografie produktu">
+                                <img class="img-fluid img-click-expand rounded {if $iterator->first}active{/if}"
+                                     style="max-height: 100px"
+                                     src="{$photo->getRelativePath()|thumbnail:300,300}"
+                                     data-full-url="{$basePath}/{$photo->getRelativePath()}"
+                                >
                             </div>
                         </div>
-
                     {/foreach}
-
-{*                    <div class="row">*}
-{*                        <div class="col m-1">*}
-{*                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">*}
-{*                        </div>*}
-{*                    </div>*}
-{*                    <div class="row">*}
-{*                        <div class="col m-1">*}
-{*                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">*}
-{*                        </div>*}
-{*                    </div>*}
                 </div>
                 <div class="col-9 bg-light">
-                    <img class="img-fluid mw-75 mh-75 bg-warning rounded" src="{$basePath}/img/products/{$product->files[0]->fileName}">
-
+                    {if $product->files}
+                        <img class="img-fluid mw-75 mh-75 bg-warning rounded img-click-receive"
+                             src="{$basePath}/{$product->files[0]->getRelativePath()}"
+                        >
+                    {/if}
                 </div>
             </div>
 
@@ -95,3 +89,15 @@
 <p>
     {$product->description}
 </p>
+
+{block pageScripts}
+
+    <script>
+        $('.img-click-expand').on('click', function () {
+           $('.img-click-expand.active').removeClass('active');
+           $(this).addClass('active');
+           $('.img-click-receive').attr('src', $(this).data('full-url'));
+        });
+    </script>
+
+{/block}
