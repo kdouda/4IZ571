@@ -3,7 +3,7 @@
         <div class="card product-card flex">
             {if $product->files}
                 <div class="card-img-top text-center">
-                    <img class="card-image" src="{$product->files[0]->getRelativePath()}" onerror="this.onerror=null;this.src='https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png';" />
+                    <img class="card-image" src="{$product->files[0]->getRelativePath()|thumbnail: 300}" onerror="this.onerror=null;this.src='https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png';" />
                 </div>
             {else}
                 <div class="card-img-top text-center">
@@ -21,7 +21,7 @@
                                 <label class="align-self-center mb-0 mr-2 justify-content-start">Počet kusů: </label>
                                 <input type="text" class="form-control" style="max-width:40px" n:name="count">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" n:name="ok"><i class="fa fa-shopping-cart"></i></button>
+                                    <button class="btn btn-outline-secondary" type="submit" n:name="ok"><i class="fa fa-shopping-cart"></i></button>
                                 </div>
                             </div>
                         {/form}

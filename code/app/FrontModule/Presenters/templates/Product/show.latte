@@ -7,25 +7,24 @@
             </div>
             <div class="row">
                 <div class="col-3 bg-dark justify-content-between d-flex flex-column">
-                    <div class="row">
-                        <div class="col m-1">
-                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                    {foreach $product->files as $photo}
+                        <div class="row">
+                            <div class="col m-1">
+                                <img class="img-fluid img-click-expand rounded {if $iterator->first}active{/if}"
+                                     style="max-height: 100px"
+                                     src="{$photo->getRelativePath()|thumbnail:300,300}"
+                                     data-full-url="{$basePath}/{$photo->getRelativePath()}"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m-1">
-                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col m-1">
-                            <img class="img-fluid rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                        </div>
-                    </div>
+                    {/foreach}
                 </div>
                 <div class="col-9 bg-light">
-                    <img class="img-fluid mw-75 mh-75 bg-warning rounded" src="https://images.unsplash.com/flagged/photo-1593005510329-8a4035a7238f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8eWVsbG93fGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-
+                    {if $product->files}
+                        <img class="img-fluid mw-75 mh-75 bg-warning rounded img-click-receive"
+                             src="{$basePath}/{$product->files[0]->getRelativePath()}"
+                        >
+                    {/if}
                 </div>
             </div>
 
@@ -63,15 +62,7 @@
                 </div>
             </div>
         </div>
-
 </section>
-{foreach $product->files as $file}
-    <img src="{$basePath}/img/products/{$file->fileName}" style="max-width: 200px; max-height: 200px" alt="Fotografie produktu">
-{/foreach}
-
-<p>
-    {$product->description}
-</p>
 
 {if $product->dimensions}
     <table class="table table-bordered table-striped">
@@ -96,3 +87,15 @@
         </tbody>
     </table>
 {/if}
+
+{block pageScripts}
+
+    <script>
+        $('.img-click-expand').on('click', function () {
+           $('.img-click-expand.active').removeClass('active');
+           $(this).addClass('active');
+           $('.img-click-receive').attr('src', $(this).data('full-url'));
+        });
+    </script>
+
+{/block}

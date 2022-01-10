@@ -60,3 +60,7 @@
         width: 150px;
     }
 }
+
+.img-fluid.rounded.active {
+    border: 1px solid #fff;
+}
