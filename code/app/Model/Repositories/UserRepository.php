@@ -7,5 +7,7 @@ namespace App\Model\Repositories;
  * @package App\Model\Repositories
  */
 class UserRepository extends BaseRepository{
-
+    public function getConnection() {
+        return $this->connection->select('*')->from($this->getTable());
+    }
 }

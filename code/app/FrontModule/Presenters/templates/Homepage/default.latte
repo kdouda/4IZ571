@@ -5,6 +5,7 @@
 {block content}
 
 {varType App\Model\Entities\Product[] $featuredProducts}
+{varType App\Model\Entities\Category[] $featuredCategories}
 
 {if $isLoggedIn}
     <div class="jumbotron">
@@ -70,13 +71,20 @@
     </div>
 {/if}
 
-<section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ml-2 mr-2">
-{*    {foreach $featuredProducts as $product}
-        {control productCard $product}
-    {/foreach}*}
-</section>
 
+<div class="container">
+    <h2 class="mb-3">Co pro vás máme?</h2>
 
+    <div class="row">
+        {foreach $featuredCategories as $category}
+            <div class="col-xs-12 col-sm-12">
+                <h4>{$category->title}</h4>
+                <p>{$category->description}</p>
+                <p><a class="btn btn-secondary" href="{plink Product:list, category => $category->categoryId}">Zobrazit nabídku produktů</a></p>
+            </div>
+        {/foreach}
+    </div>
+</div>
 
 {/block}
 
