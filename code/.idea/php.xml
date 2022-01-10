@@ -20,7 +20,6 @@
       <path value="$PROJECT_DIR$/vendor/nette/robot-loader" />
       <path value="$PROJECT_DIR$/vendor/nette/security" />
       <path value="$PROJECT_DIR$/vendor/nette/schema" />
-      <path value="$PROJECT_DIR$/vendor/tracy/tracy" />
       <path value="$PROJECT_DIR$/vendor/nette/utils" />
       <path value="$PROJECT_DIR$/vendor/tharos/leanmapper" />
       <path value="$PROJECT_DIR$/vendor/vojir/leanmapper-mappers" />
@@ -33,6 +32,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/inflector" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/vendor/contributte/application" />
+      <path value="$PROJECT_DIR$/vendor/tracy/tracy" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2">

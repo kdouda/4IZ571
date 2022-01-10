@@ -2,16 +2,30 @@
 {varType App\Model\Entities\Category[] $categories}
 {block content}
 
-<h1 n:block="title">Nabízené produkty</h1>
+
 
 <div class="row">
-    <aside class="col col-lg-2">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
+    <aside class="col-lg-2 col-sm-3 pr-0 pl-0 mr-1">
+        <div class="card">
+            <div class="card-header d-md-flex d-none">
                 Kategorie
             </div>
 
-            <div class="list-group list-group-flush">
+            <div class=" dropdown d-md-none">
+                <button type="button" class="btn-block border-0 dropdown-toggle " data-toggle="dropdown" id="5b4f95e9a64b5" aria-haspopup="true" aria-expanded="false">
+                    Kategorie
+                </button>
+                <div class="dropdown-menu" aria-labelledby="5b4f95e9a64b5" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(63px, 31px, 0px);">
+                    <a href="{plink this category => null}" class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
+
+                    {foreach $categories as $category}
+                        {* z hlediska SEO by bylo výrazně lepší, aby místo CategoryID zde byl nějaký string - webalizovaný *}
+                        <a href="{plink this category => $category->categoryId}"  class="{if $currentCategory == $category->categoryId}active{/if} list-group-item list-group-item-action">{$category->title}</a>
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="list-group list-group-flush d-none d-md-flex">
                 <a href="{plink this category => null}" class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
 
                 {foreach $categories as $category}
@@ -21,9 +35,9 @@
             </div>
         </div>
     </aside>
-
-    <section class="col">
-        <article class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ml-2 mr-2">
+    <section class="col p-0">
+        <h1 n:block="title" class="text-center">Nabízené produkty</h1>
+        <article class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center mr-0 ">
             {foreach $products as $product}
                 {control productCard $product}
             {/foreach}

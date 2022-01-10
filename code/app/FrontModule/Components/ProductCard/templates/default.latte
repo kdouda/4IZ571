@@ -1,23 +1,37 @@
 {varType App\Model\Entities\Product $product}
-{snippet}
-    <div class="col">
-        <div class="card shadow-sm">
+    <div class="col-lg-3 col-md-4 col-sm-6 m-2 p-0" >
+        <div class="card product-card flex">
             {if $product->files}
                 <div class="card-img-top text-center">
-                    <img style="max-width: 300px; max-height: 300px" src="{$product->files[0]->getRelativePath()|thumbnail: 300, 300}" />
+                    <img class="card-image" src="{$product->files[0]->getRelativePath()}" onerror="this.onerror=null;this.src='https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png';" />
+                </div>
+            {else}
+                <div class="card-img-top text-center">
+                    <img class="card-image" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png" />
                 </div>
             {/if}
 
             <div class="card-body">
                 <h5 class="card-title"><a href="{plink Product:show url=>$product->url}" class="h4">{$product->title}</a></h5>
                 <p class="card-text">{$product->description|truncate:250}</p>
-                <p class="card-text">
-                    <em>
+                <div class="row d-flex justify-content-end " >
+                    <div class="col d-flex flex-right justify-content-end pr-0">
+                        {form "productCartForm-$product->productId"}
+                            <div class="input-group mb-3">
+                                <label class="align-self-center mb-0 mr-2 justify-content-start">Počet kusů: </label>
+                                <input type="text" class="form-control" style="max-width:40px" n:name="count">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" n:name="ok"><i class="fa fa-shopping-cart"></i></button>
+                                </div>
+                            </div>
+                        {/form}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between row">
+                    <em class="flex-left">
                         {$product->price|number:2} Kč
                     </em>
-                </p>
-                <div class="d-flex flex-row-reverse">
-                    <div class="btn-group">
+                    <div class="btn-group flex-right ">
                         <a href="{plink Product:show url=>$product->url}" class="btn btn-sm btn-outline-secondary">View</a>
 
                         {if $canEdit}
@@ -28,4 +42,3 @@
             </div>
         </div>
     </div>
-{/snippet}

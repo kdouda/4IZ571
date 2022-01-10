@@ -2,13 +2,17 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\FrontModule\Components\CartControl\ProductCard;
+use App\FrontModule\Components\CartControl\CartControl;
+use App\FrontModule\Components\ProductCard\ProductCard;
 use App\FrontModule\Components\ProductCard\ProductCardFactory;
+use App\FrontModule\Components\ProductCartForm\ProductCartForm;
 use App\FrontModule\Components\ProductCartForm\ProductCartFormFactory;
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
 use Nette;
 use Nette\Application\BadRequestException;
+use Nette\Application\UI\Multiplier;
+use Nette\Security;
 
 /**
  * Class ProductPresenter
@@ -32,6 +36,16 @@ class ProductPresenter extends BasePresenter
 
     /** @persistent */
     public $category;
+    /**
+     * @var Security\User
+     */
+    private $currentUser;
+
+    public function injectUser(Security\User $user)
+    {
+
+        $this->currentUser = $user;
+    }
 
     /**
      * Akce pro zobrazení jednoho produktu
@@ -54,6 +68,29 @@ class ProductPresenter extends BasePresenter
         return $this->productCardFactory->create();
     }
 
+    protected function createComponentProductCartForm():Multiplier {
+        return new Multiplier(function($productId){
+            $form = $this->productCartFormFactory->create();
+            $form->setDefaults(['productId'=>$productId]);
+            $form->onSubmit[]=function(ProductCartForm $form){
+                try{
+                    $product = $this->productsFacade->getProduct($form->values->productId);
+                    //kontrola zakoupitelnosti
+                }catch (\Exception $e){
+                    $this->flashMessage('Produkt nejde přidat do košíku','error');
+                    $this->redirect('this');
+                }
+                //přidání do košíku
+                /** @var CartControl $cart */
+                $cart = $this->getComponent('cart');
+                $cart->addToCart($product, (int)$form->values->count);
+                $this->redirect('this');
+            };
+
+            return $form;
+        });
+    }
+
     /**
      * Akce pro vykreslení přehledu produktů
      */
@@ -73,6 +110,7 @@ class ProductPresenter extends BasePresenter
         $this->template->products = $this->productsFacade->filterAllBy($productsQuery, $categories, $limit, $offset);
         $this->template->categories = $this->categoriesFacade->findCategories(['order' => 'title']);
         $this->template->currentCategory = $category;
+        $this->template->canEdit = $this->currentUser->isLoggedIn() && $this->currentUser->isAllowed($this->template->products[0], 'edit');
     }
 
     #region injections
