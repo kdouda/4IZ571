@@ -19,7 +19,7 @@
         <h1 class="display-4">Košík</h1>
         <p class="lead">
             V košíku máte celkem {$cartCount} produkt{if $cartCount >= 5}ů{elseif $cartCount >= 2}y{/if},
-            {$totalItemsCount} kus{if $cartCount >= 5}ů{elseif $cartCount >= 2}y{/if}.
+            {$totalItemsCount} kus{if $totalItemsCount >= 5}ů{elseif $totalItemsCount >= 2}y{/if}.
             Dohromady by Vás to stálo <b>{$cart->getTotalPrice()|number:2} Kč</b>.
         </p>
         <p class="lead">

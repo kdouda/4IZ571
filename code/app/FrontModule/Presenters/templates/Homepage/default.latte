@@ -20,44 +20,31 @@
     {else}
     <div id="carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carousel" data-slide-to="0" class=""></li>
-            <li data-target="#carousel" data-slide-to="1" class=""></li>
-            <li data-target="#carousel" data-slide-to="2" class="active"></li>
+            {var $carouselIterator = 0}
+            {foreach $featuredProducts as $product}
+                {if $product->files}
+                    <li data-target="#carousel" data-slide-to="{$carouselIterator++}" class="{if $iterator->first}active{/if}"></li>
+                {/if}
+            {/foreach}
         </ol>
 
         <div class="carousel-inner">
-            <div class="carousel-item">
-                <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
-                <div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>Example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            {foreach $featuredProducts as $product}
+                {if $product->files}
+                    <div class="carousel-item {if $iterator->first}active{/if}">
+                        <img class="first-slide" src="{$basePath}/{$product->files[0]->getRelativePath()}" alt="First slide">
+                        <div class="container">
+                            <div class="carousel-caption text-left">
+                                <h1>{$product->title}</h1>
+                                <p>{$product->description|truncate:250}</p>
+                                <p>
+                                    <a class="btn btn-lg btn-primary" href="{plink Product:show $product->url}" role="button">Více</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="carousel-item">
-                <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="carousel-item active">
-                <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
-                <div class="container">
-                    <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-                    </div>
-                </div>
-            </div>
+                {/if}
+            {/foreach}
         </div>
 
         <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
