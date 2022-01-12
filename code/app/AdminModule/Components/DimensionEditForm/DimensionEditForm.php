@@ -59,6 +59,9 @@ class DimensionEditForm extends Form
         $this->addTextArea('description', 'Popis dimenze')
              ->setRequired(false);
 
+        $this->addText('schemaProperty', 'Schema.org vlastnost')
+            ->setRequired(false);
+
         // todo - jednotky, typy dimenze
 
 //        $this->addSelect('type', 'Typ dimenze', [Dimension::TYPE_NUMBER => 'číslo', Dimension::TYPE_TEXT => 'text'])
@@ -77,7 +80,7 @@ class DimensionEditForm extends Form
             } else {
                 $dimension = new Dimension();
             }
-            $dimension->assign($values, ['name', 'description']);
+            $dimension->assign($values, ['name', 'description', 'schemaProperty']);
             $this->dimensionsFacade->saveDimension($dimension);
             $this->setValues(['dimensionId' => $dimension->dimensionId]);
             $this->onFinished('Dimenze byla uložena.');
@@ -102,7 +105,8 @@ class DimensionEditForm extends Form
             $values = [
                 'dimensionId'   => $values->dimensionId,
                 'name'          => $values->name,
-                'description'   => $values->description
+                'description'   => $values->description,
+                'schemaProperty'=> $values->schemaProperty
             ];
         }
         parent::setDefaults($values, $erase);

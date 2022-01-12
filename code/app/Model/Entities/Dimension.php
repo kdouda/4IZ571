@@ -10,6 +10,7 @@ use LeanMapper\Entity;
  * @property int $dimensionId
  * @property string $name
  * @property string $description
+ * @property string $schemaProperty
  */
 class Dimension extends Entity implements \Nette\Security\Resource{
 

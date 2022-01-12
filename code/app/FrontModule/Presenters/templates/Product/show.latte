@@ -96,4 +96,28 @@
         });
     </script>
 
+    <script type="application/ld+json">
+        {var $dimensions = array_filter($product->dimensions, function (App\Model\Entities\ProductDimension $pd) { return $pd->dimension->schemaProperty; })}
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "description": {$product->description},
+            "name": {$product->title},
+            {if $product->files[0]}
+            "image": {$baseUrl . "/" . $product->files[0]->getRelativePath()},
+            {/if}
+            "offers": {
+                "@type": "Offer",
+                "availability": {if $product->available}"https://schema.org/InStock"{else}"https://schema.org/Discontinued"{/if},
+                "price": {$product->price},
+                "priceCurrency": "CZK"
+            }{if $dimensions},{/if}
+            {foreach $dimensions as $dimension}
+                {if $dimension->dimension->schemaProperty}
+                    {$dimension->dimension->schemaProperty}: {$dimension->value}{if !$iterator->last},{/if}
+                {/if}
+            {/foreach}
+        }
+    </script>
+
 {/block}
