@@ -76,6 +76,11 @@ class OrderPresenter extends BasePresenter
             $this->redirect('Cart:default');
         }
 
+        if (!$this->user->isLoggedIn()) {
+            $this->flashMessage('Pro objednání se přihlašte', 'success');
+            $this->redirect('User:login');
+        }
+
     }
 
 }
