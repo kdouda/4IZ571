@@ -33,6 +33,7 @@ services:
 
 	- App\FrontModule\Components\UserLoginForm\UserLoginFormFactory
 	- App\FrontModule\Components\UserRegistrationForm\UserRegistrationFormFactory
+	- App\FrontModule\Components\OrderForm\OrderFormFactory
 	forgottenPasswordFormFactory:
 	    implement: App\FrontModule\Components\ForgottenPasswordForm\ForgottenPasswordFormFactory
 	    setup:
@@ -50,6 +51,8 @@ services:
 	- App\Model\Facades\ProductDimensionsFacade
 	- App\Model\Facades\CartFacade
 	- App\Model\Facades\FilesFacade
+	- App\Model\Facades\AddressFacade
+	- App\Model\Facades\OrderFacade
 
 	- App\Model\Repositories\CategoryRepository
 	- App\Model\Repositories\ForgottenPasswordRepository
@@ -63,6 +66,9 @@ services:
 	- App\Model\Repositories\CartRepository
 	- App\Model\Repositories\CartItemRepository
 	- App\Model\Repositories\FileRepository
+	- App\Model\Repositories\AddressRepository
+	- App\Model\Repositories\OrderRepository
+	- App\Model\Repositories\OrderItemRepository
 
 extensions:
 	thumbnail: Kollarovic\Thumbnail\DI\Extension
