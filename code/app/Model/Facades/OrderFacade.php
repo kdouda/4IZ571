@@ -108,4 +108,23 @@ class OrderFacade
                                      ->innerJoin('order_item ot on ot.order_id = `order`.order_id')
                                      ->groupBy('`order`.order_id');
     }
+
+    public function getGridDataSourceForOrder($order)
+    {
+        return $this->orderItemRepository->getFluent()
+//            ->distinct()
+            ->select('count(`p`.product_id) as products, p.title,SUM(p.price) as total_price,o.state,o.create_date')
+            ->where('`order_item`.order_id = ?',$order)
+            ->innerJoin('product p on p.product_id = `order_item`.product_id')
+            ->innerJoin('`order` o on o.order_id = `order_item`.order_id')
+            ->groupBy('p.product_id');
+
+//        return $this->orderItemRepository->getFluent()
+//            ->select('*')
+//            ->where('`order_item`.order_id = ?',$order)
+//            ->innerJoin('product p on p.product_id = `order_item`.product_id')
+//            ->innerJoin('`order` o on o.order_id = `order_item`.order_id')
+//            ->groupBy('p.product_id');
+
+    }
 }

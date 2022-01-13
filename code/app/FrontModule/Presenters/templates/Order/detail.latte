@@ -4,5 +4,18 @@
 {block content}
 
 <div class="container">
-    {dump $order}
+
+    <div class="row">
+        <div class="col mb-4 mt-4">
+            <h3>Detaily objednávky</h3>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col">
+            {control detailGrid $order->orderId}
+        </div>
+
+    </div>
+
 </div>
