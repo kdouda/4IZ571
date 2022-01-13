@@ -5,6 +5,7 @@ namespace App\FrontModule\Presenters;
 use App\FrontModule\Components\CartControl\CartControl;
 use App\FrontModule\Components\OrderForm\OrderFormFactory;
 use App\Model\Facades\OrderFacade;
+use Tracy\Debugger;
 use Ublaboo\DataGrid\DataGrid;
 
 class OrderPresenter extends BasePresenter
@@ -56,12 +57,11 @@ class OrderPresenter extends BasePresenter
 
     public function createComponentDetailGrid($order)
     {
-
         $grid = new DataGrid(null, 'detail');
 
         $grid->setPrimaryKey('p.title');
 
-        $grid->setDataSource($this->orderFacade->getGridDataSourceForOrder($order));
+        $grid->setDataSource($this->orderFacade->getGridDataSourceForOrder($this->getParameter('id')));
 
         $grid->addColumnText('p.title', 'Produkt')->setSortable();
 
