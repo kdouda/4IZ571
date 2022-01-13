@@ -1,0 +1,131 @@
+{block title}
+Srovnání produktů
+{/block}
+
+{varType App\Model\Entities\Product[] $products}
+{varType App\Model\Entities\Dimension[] $dimensions}
+
+{block content}
+
+<div class="container">
+    <div class="row">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    {for $i = 0; $i < $productCount; $i++}
+                        <th>
+                            <a href="{plink Product:show $products[$i]->url}">{$products[$i]->title}</a>
+                        </th>
+                    {/for}
+                </tr>
+
+                <tr>
+                    <th></th>
+
+                    {for $i = 0; $i < $productCount; $i++}
+                        <th>
+                            {if $products[$i]->files}
+                                <a href="{plink Product:show $products[$i]->url}">
+                                    <img src="{$basePath}{$products[$i]->files[0]->getRelativePath()|thumbnail:100,100}">
+                                </a>
+                             {/if}
+                        </th>
+                    {/for}
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        Cena
+                    </td>
+
+                    {for $i = 0; $i < $productCount; $i++}
+                        <td class="text-right">
+                            {$products[$i]->price|number:2} Kč
+                        </td>
+                    {/for}
+                </tr>
+
+                <tr>
+                    <td>
+                        Dostupné
+                    </td>
+
+                    {for $i = 0; $i < $productCount; $i++}
+                        <td class="text-right">
+                            {if $products[$i]->available}
+                                <i class="fa fa-check"></i>
+                            {else}
+                                <i class="fa fa-times"></i>
+                            {/if}
+                        </td>
+                    {/for}
+                </tr>
+
+                {for $i = 0; $i < $dimensionCount; $i++}
+                    {var $dimension = $dimensions[$i]}
+
+                    <tr>
+                        <td>
+                            {$dimension->name}
+                        </td>
+
+                        {for $j = 0; $j < $productCount; $j++}
+                            <td class="text-right">
+                                {$products[$j]->getDimensionValue($dimension)}
+                            </td>
+                        {/for}
+
+                    </tr>
+
+                {/for}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        Přidat do košíku
+                    </td>
+
+                    {for $i = 0; $i < $productCount; $i++}
+                        <td>
+                            {var $productId = $products[$i]->productId}
+                        {form "productCartForm-$productId"}
+                                <div class="input-group mb-3">
+                                    <label class="align-self-center mb-0 mr-2 justify-content-start">Počet kusů: </label>
+                                    <input type="text" class="form-control" style="max-width:40px" n:name="count">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" n:name="ok"><i class="fa fa-shopping-cart"></i></button>
+                                    </div>
+                                </div>
+                            {/form}
+                        </td>
+                    {/for}
+                </tr>
+
+                <tr>
+                    <td>
+                        Odstranit ze srovnání
+                    </td>
+
+                    {for $i = 0; $i < $productCount; $i++}
+                        <td class="text-center">
+                            {var $productId = $products[$i]->productId}
+
+                            <a class="btn btn-danger btn-outline btn-sm" href="{plink removeProductComparison! $productId}">
+                                <i class="fa fa-times"></i>
+                            </a>
+
+                        </td>
+                    {/for}
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
