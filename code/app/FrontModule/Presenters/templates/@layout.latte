@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="icon" href="{$basePath}/img/favicon/favicon.ico" sizes="any"/>
     <link rel="apple-touch-icon" sizes="180x180" href="{$basePath}/img/favicon/favicon-180x180.png"/>
     <link rel="icon" href="{$basePath}/img/favicon/favicon.svg" type="image/svg+xml"/>
@@ -20,106 +21,47 @@
     {block head}{/block}
 </head>
 <body>
+<div id="container">
 
     {ifset navbar}{include navbar}{else}
-        {block navbar}
-            <div class="navbar navbar-expand-lg navbar-dark text-light bg-primary row p-0 d-flex">
-                <h5 class="">Obchodní podmínky</h5>
-{*                <span class="navbar-brand h1">Fleenk</span>*}
-                {*<button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>*}
-{*                <div class="collapse navbar-collapse" id="navbar-collapse">*}
-
-{*                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">*}
-
-{*                            <li class="nav-item {if $presenter == 'Branches'}active{/if}">*}
-{*                                <a class="nav-link" n:href="Branches:">Branches</a></li>*}
-{*                            <li class="nav-item {if $presenter == 'Teams'}active{/if}">*}
-{*                                <a class="nav-link" n:href="Teams:">Teams</a></li>*}
-{*                            <li class="nav-item {if $presenter == 'Users'}active{/if}">*}
-{*                                <a class="nav-link" n:href="Users:">Users</a></li>*}
-{*                            <li class="nav-item {if $presenter == 'Upload'}active{/if}">*}
-{*                                <a class="nav-link" n:href="Upload:">Database</a></li>*}
-{*                            <li class="nav-item {if $presenter == 'Management'}active{/if}">*}
-{*                                <a class="nav-link" n:href="Management:">Management</a></li>*}
-
-{*                        </ul>*}
-
-
-                </div>
+    {block navbar}
+        <div class="navbar navbar-expand-lg navbar-dark text-light bg-primary row p-0 d-flex">
+            <h5 class="">Obchodní podmínky</h5>
+        </div>
+        <div class="navbar m-0 navbar-light bg-light pt-2 pb-2 pr-0 row">
+            <div class=" col-5">
+                <a class="navbar-brand h4" href="{plink Homepage:default}">Llamashop</a>
             </div>
-            <div class="navbar m-0 navbar-light bg-light pt-2 pb-2 pr-0 row">
-                <div class=" col-5">
-                    <a class="navbar-brand h4" href="{plink Homepage:default}">Llamashop</a>
-                </div>
-                <div class=" col-5 text-right">
-                    <button class="navbar-toggler border-0 fa-3x" type="button" data-toggle="collapse"
-                            data-target="#user-collapse">
-                        <span class="fas fa-user-circle"></span>
-                    </button>
-                    <ul class="collapse navbar-nav navbar-collapse ml-auto mt-2 my-lg-0 text-right " id="user-collapse">
-                        {control cart}
+            <div class=" col-5 text-right">
+                <button class="navbar-toggler border-0 fa-3x" type="button" data-toggle="collapse"
+                        data-target="#user-collapse">
+                    <span class="fas fa-user-circle"></span>
+                </button>
+                <ul class="collapse navbar-nav navbar-collapse ml-auto mt-2 my-lg-0 text-right " id="user-collapse">
+                    {control cart}
 				        {control userLogin}
 
-                    </ul>
-                </div>
+                </ul>
             </div>
-        {/block}
+        </div>
+    {/block}
     <div class=container>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert-' . $flash->type">{$flash->message}</div>
-    {/ifset}
+        {/ifset}
 
     {include content}
-
+    </div>
+</div>
     {block footer}
-        <!-- FOOTER -->
-        <footer class="fixed-bottom mt-5 bg-primary pt-2 pb-2 pr-0 text-center text-light">
-            &copy; Llamaworkers 2022
-        </footer>
-    {/block}
-</div>
+            <!-- FOOTER -->
+            <footer id="footer" class="fixed-bottom mt-5 bg-primary pt-2 pb-2 pr-0 text-center text-light">
+                &copy; Llamaworkers 2022
+            </footer>
+        {/block}
 
-{*<body>
 
-<header class="navbar navbar-dark bg-primary mb-0">
-    <div class="container">
-        <h1 class="h2 mt-1 "><a href="{plink Homepage:default}" class="text-dark">E-shop</a></h1>
-        <div class="ml-auto">
-            {control cart}
-					{control userLogin}
-        </div>
-    </div>
-</header>
-<div class="navbar m-0 navbar-light bg-light pt-2 pb-2">
-    <div class="col">
-        <a class="navbar-brand h4" href="{plink Homepage:default}">Llamashop</a>
-    </div>
-</div>
-<div class="container">
+</body>
 
-    <div class="col">
-		<div class="row">
-        <div n:foreach="$flashes as $flash"
-                class="alert alert-{$flash->type == 'error'?'danger':$flash->type} alert-dismissible mt-2" role="alert">
-            {$flash->message}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-		</div>
-
-        <section>
-            {include content}
-        </section>
-    </div>
-</div>
-<div class="footer m-0 navbar-light bg-light pt-2 pb-2">
-    <div class="col">
-        <H1 class="">Llamashop</H1>
-    </div>
-</div>*}
 
 {block scripts}
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
@@ -129,6 +71,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
             crossorigin="anonymous"></script>
+    <script>
+        $(document).ready ( function(){
+            if (window.innerHeight < document.getElementById('container').offsetHeight)
+            {
+                $footer = document.getElementById('footer');
+                $footer.classList.remove('fixed-bottom');
+                $footer.classList.add('position-sticky');
+            }
+        });
+
+    </script>
 {/block}
 
 {ifset pageScripts}

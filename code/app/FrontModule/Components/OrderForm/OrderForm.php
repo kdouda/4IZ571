@@ -15,6 +15,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Forms\Controls\SubmitButton;
 use Nette\SmartObject;
+use Nette\Utils\Html;
 use Nextras\FormsRendering\Renderers\Bs4FormRenderer;
 use Nextras\FormsRendering\Renderers\FormLayout;
 
@@ -67,7 +68,8 @@ class OrderForm extends Form
         UsersFacade                     $usersFacade
     ) {
         parent::__construct($parent, $name);
-        $this->setRenderer(new Bs4FormRenderer(FormLayout::VERTICAL));
+        $this->setRenderer(new Bs4FormRenderer(FormLayout::INLINE));
+//        $this->getRenderer()->wrappers['pair']['container'] = 'div class=" mb-2 mr-sm-2 justify-content-center"';
         $this->user = $user;
         $this->orderFacade = $orderFacade;
         $this->addressFacade = $addressFacade;
@@ -82,12 +84,14 @@ class OrderForm extends Form
         array $addresses,
         ?Nette\Forms\Controls\Checkbox $checkbox = null
     ) {
-        $group = $this->addGroup($caption);
+        $group = $this->addGroup($caption)
+        ->setOption('container', Html::el('div class="form-block-2 col-6 flex-column align-self-start"'));
 
         $selectControl = $this->addSelect('address_' . $prefix . '_saved', 'Uložená adresa', $addresses)
                               ->setDefaultValue('');
 
         $group->add($selectControl);
+        $this->getRenderer()->wrappers['label']['container'] ='div class="col-sm-3 col-form-label "';
 
         $fields = [];
 
@@ -137,7 +141,10 @@ class OrderForm extends Form
 
         $this->addAddressControls('billing', 'Fakturační adresa', $addresses, $checkSame);
 
-        $this->addSubmit('submit', 'Potvrdit objednávku')
+        $buttonGroup = $this->addGroup();
+        $buttonGroup->setOption('container', Html::el('div class="form-block-2 col-12 flex-column"'));
+        $buttonGroup = $checkSame;
+        $buttonGroup =  $this->addSubmit('submit', 'Potvrdit objednávku')
             ->onClick[] = function (SubmitButton $button) {
             $values = $this->getValues('array');
 
@@ -215,7 +222,7 @@ class OrderForm extends Form
             $this->onFinished();
         };
 
-        $this->addSubmit('storno', 'zrušit')
+        $buttonGroup =  $this->addSubmit('storno', 'zrušit')
             ->setValidationScope([])
             ->onClick[] = function (SubmitButton $button) {
             $this->onCancel();

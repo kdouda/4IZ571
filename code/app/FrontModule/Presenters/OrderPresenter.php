@@ -54,6 +54,28 @@ class OrderPresenter extends BasePresenter
         return $grid;
     }
 
+    public function createComponentDetailGrid($order)
+    {
+
+        $grid = new DataGrid(null, 'detail');
+
+        $grid->setPrimaryKey('p.title');
+
+        $grid->setDataSource($this->orderFacade->getGridDataSourceForOrder($order));
+
+        $grid->addColumnText('p.title', 'Produkt')->setSortable();
+
+        $grid->addColumnText('products', 'Počet produktů')->setSortable();
+
+        $grid->addColumnText('total_price', 'Cena')->setSortable();
+
+        $grid->addColumnText('o.create_date', 'Datum vytvoření')->setSortable();
+
+        $grid->addColumnText('state', 'Stav')->setSortable();
+
+        return $grid;
+    }
+
     public function renderDetail(int $id)
     {
         try {

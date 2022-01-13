@@ -66,10 +66,6 @@
                 "nette",
                 "presenter"
             ],
-            "support": {
-                "issues": "https://github.com/contributte/application/issues",
-                "source": "https://github.com/contributte/application/tree/v0.5.1"
-            },
             "time": "2021-03-10T21:48:30+00:00"
         },
         {
@@ -194,10 +190,6 @@
                 "facebook",
                 "sdk"
             ],
-            "support": {
-                "issues": "https://github.com/facebook/php-graph-sdk/issues",
-                "source": "https://github.com/facebook/php-graph-sdk/tree/5.7.0"
-            },
             "time": "2018-12-11T22:56:31+00:00"
         },
         {
@@ -249,10 +241,6 @@
                 "nette",
                 "thumbnail"
             ],
-            "support": {
-                "issues": "https://github.com/Kollarovic/ThumbnailHelper/issues",
-                "source": "https://github.com/Kollarovic/ThumbnailHelper/tree/3.0.0"
-            },
             "time": "2019-05-27T07:13:35+00:00"
         },
         {
@@ -497,10 +485,6 @@
                 "configurator",
                 "nette"
             ],
-            "support": {
-                "issues": "https://github.com/nette/bootstrap/issues",
-                "source": "https://github.com/nette/bootstrap/tree/v3.1.2"
-            },
             "time": "2021-11-24T16:51:46+00:00"
         },
         {
@@ -568,10 +552,6 @@
                 "nette",
                 "sqlite"
             ],
-            "support": {
-                "issues": "https://github.com/nette/caching/issues",
-                "source": "https://github.com/nette/caching/tree/v3.1.2"
-            },
             "time": "2021-08-24T23:45:03+00:00"
         },
         {
@@ -630,10 +610,6 @@
                 "components",
                 "nette"
             ],
-            "support": {
-                "issues": "https://github.com/nette/component-model/issues",
-                "source": "https://github.com/nette/component-model/tree/v3.0.2"
-            },
             "time": "2021-08-25T14:52:12+00:00"
         },
         {
@@ -839,10 +815,6 @@
                 "nette",
                 "validation"
             ],
-            "support": {
-                "issues": "https://github.com/nette/forms/issues",
-                "source": "https://github.com/nette/forms/tree/v3.1.6"
-            },
             "time": "2021-11-09T11:56:09+00:00"
         },
         {
@@ -987,10 +959,6 @@
                 "nette",
                 "smtp"
             ],
-            "support": {
-                "issues": "https://github.com/nette/mail/issues",
-                "source": "https://github.com/nette/mail/tree/v3.1.8"
-            },
             "time": "2021-08-25T00:07:03+00:00"
         },
         {
@@ -1119,10 +1087,6 @@
                 "php",
                 "scaffolding"
             ],
-            "support": {
-                "issues": "https://github.com/nette/php-generator/issues",
-                "source": "https://github.com/nette/php-generator/tree/v3.6.5"
-            },
             "time": "2021-11-24T16:23:44+00:00"
         },
         {
@@ -1186,10 +1150,6 @@
                 "nette",
                 "trait"
             ],
-            "support": {
-                "issues": "https://github.com/nette/robot-loader/issues",
-                "source": "https://github.com/nette/robot-loader/tree/v3.4.1"
-            },
             "time": "2021-08-25T15:53:54+00:00"
         },
         {
@@ -1248,10 +1208,6 @@
             "keywords": [
                 "nette"
             ],
-            "support": {
-                "issues": "https://github.com/nette/routing/issues",
-                "source": "https://github.com/nette/routing/tree/v3.0.2"
-            },
             "time": "2021-02-06T04:08:30+00:00"
         },
         {
@@ -1310,10 +1266,6 @@
                 "config",
                 "nette"
             ],
-            "support": {
-                "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.2.2"
-            },
             "time": "2021-10-15T11:40:02+00:00"
         },
         {
@@ -1380,10 +1332,6 @@
                 "authorization",
                 "nette"
             ],
-            "support": {
-                "issues": "https://github.com/nette/security/issues",
-                "source": "https://github.com/nette/security/tree/v3.1.5"
-            },
             "time": "2021-09-20T15:20:25+00:00"
         },
         {
@@ -1465,10 +1413,6 @@
                 "utility",
                 "validation"
             ],
-            "support": {
-                "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.6"
-            },
             "time": "2021-11-24T15:47:23+00:00"
         },
         {
@@ -1529,10 +1473,6 @@
                 "nette",
                 "nextras"
             ],
-            "support": {
-                "issues": "https://github.com/nextras/forms-rendering/issues",
-                "source": "https://github.com/nextras/forms-rendering/tree/v1.1.0"
-            },
             "time": "2021-06-04T04:20:26+00:00"
         },
         {
@@ -1587,10 +1527,7 @@
                 "symfony",
                 "words"
             ],
-            "support": {
-                "source": "https://github.com/symfony/inflector/tree/v4.4.34"
-            },
-            "abandoned": "use `EnglishInflector` from the String component instead",
+            "abandoned": "EnglishInflector from the String component",
             "time": "2021-10-29T15:39:54+00:00"
         },
         {
@@ -1656,9 +1593,6 @@
                 "polyfill",
                 "portable"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.24.0"
-            },
             "time": "2021-10-20T20:35:02+00:00"
         },
         {
@@ -1725,9 +1659,6 @@
                 "portable",
                 "shim"
             ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.24.0"
-            },
             "time": "2021-09-13T13:58:33+00:00"
         },
         {
@@ -1791,9 +1722,6 @@
                 "property path",
                 "reflection"
             ],
-            "support": {
-                "source": "https://github.com/symfony/property-access/tree/v4.4.36"
-            },
             "time": "2021-12-11T14:17:37+00:00"
         },
         {
@@ -1854,10 +1782,6 @@
             ],
             "description": "Tiny ORM based on powerful Dibi database abstraction library for PHP.",
             "homepage": "http://www.leanmapper.com",
-            "support": {
-                "issues": "https://github.com/Tharos/LeanMapper/issues",
-                "source": "https://github.com/Tharos/LeanMapper/tree/v4.0.1"
-            },
             "time": "2021-10-20T15:54:50+00:00"
         },
         {
@@ -2002,10 +1926,6 @@
                 "nette",
                 "table"
             ],
-            "support": {
-                "issues": "https://github.com/contributte/datagrid/issues",
-                "source": "https://github.com/contributte/datagrid/tree/v6.9.2"
-            },
             "time": "2021-10-19T08:21:03+00:00"
         },
         {
@@ -2045,10 +1965,6 @@
             ],
             "description": "Basic camelCase to underdash mappers for LeanMapper",
             "homepage": "https://github.com/vojir/LeanMapper-Mappers.git",
-            "support": {
-                "issues": "https://github.com/vojir/LeanMapper-Mappers/issues",
-                "source": "https://github.com/vojir/LeanMapper-Mappers/tree/v1.1"
-            },
             "time": "2021-11-01T01:31:08+00:00"
         }
     ],

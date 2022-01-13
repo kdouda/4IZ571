@@ -58,7 +58,7 @@ class ProductCard extends Control
         $this->product = $product;
         bdump($this->product->productId);
         $this->createComponentProductCartForm();
-        $template->canEdit = $this->currentUser->isLoggedIn() && $this->currentUser->isAllowed($product, 'edit');
+        $template->canEdit = $this->currentUser->isLoggedIn() && $this->currentUser->isInRole('admin');
         $template->render();
     }
 
