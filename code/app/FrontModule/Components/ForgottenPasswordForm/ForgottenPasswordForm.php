@@ -2,6 +2,7 @@
 
 namespace App\FrontModule\Components\ForgottenPasswordForm;
 
+use App\Model\Email\MailSender;
 use App\Model\Facades\UsersFacade;
 use Nette;
 use Nette\Application\UI\Form;
@@ -35,6 +36,9 @@ class ForgottenPasswordForm extends Form{
   /** @var string $mailFromName */
   private $mailFromName = '';
 
+  /** @var MailSender */
+  private $mailSender;
+
   /**
    * ForgottenPasswordForm constructor.
    * @param Nette\ComponentModel\IContainer|null $parent
@@ -42,12 +46,19 @@ class ForgottenPasswordForm extends Form{
    * @param UsersFacade $usersFacade
    * @param Nette\Application\LinkGenerator $linkGenerator
    */
-  public function __construct(Nette\ComponentModel\IContainer $parent = null, string $name = null, UsersFacade $usersFacade, Nette\Application\LinkGenerator $linkGenerator){
+  public function __construct(
+      Nette\ComponentModel\IContainer $parent = null,
+      string $name = null,
+      UsersFacade $usersFacade,
+      Nette\Application\LinkGenerator $linkGenerator,
+      MailSender $mailSender
+  ) {
     parent::__construct($parent, $name);
     $this->setRenderer(new Bs4FormRenderer(FormLayout::VERTICAL));
     $this->usersFacade=$usersFacade;
     $this->createSubcomponents();
     $this->linkGenerator=$linkGenerator;
+    $this->mailSender = $mailSender;
   }
 
   /**
@@ -80,7 +91,11 @@ class ForgottenPasswordForm extends Form{
 
         //vygenerování odkaz na změnu hesla
         $forgottenPassword = $this->usersFacade->saveNewForgottenPasswordCode($user);
-        $mailLink = $this->linkGenerator->link('//Front:User:renewPassword', ['user'=>$user->userId, 'code'=>$forgottenPassword->code]);
+
+        $mailLink = $this->linkGenerator->link(
+            'Front:User:renewPassword',
+            ['user' => $user->userId, 'code' => $forgottenPassword->code]
+        );
 
         #region příprava textu mailu
         $mail = new Nette\Mail\Message();
@@ -90,9 +105,7 @@ class ForgottenPasswordForm extends Form{
         $mail->htmlBody = 'Obdrželi jsme vaši žádost na obnovu zapomenutého hesla. Pokud si přejete heslo změnit, <a href="'.$mailLink.'">klikněte zde</a>.';
         #endregion endregion příprava textu mailu
 
-        //odeslání mailu pomocí PHP funkce mail
-        $mailer = new Nette\Mail\SendmailMailer;
-        $mailer->send($mail);
+        $this->mailSender->send($mail);
 
         $this->onFinished();
       };

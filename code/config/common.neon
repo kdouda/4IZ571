@@ -24,6 +24,7 @@ services:
 	- App\Model\Authorization\Authorizator
 
 	- App\Model\Api\Facebook\FacebookApi(%facebook.appId%, %facebook.secret%)
+	- App\Model\Email\MailSender(%mailFrom.username%, %mailFrom.password%, %mailFrom.host%)
 
 	- App\AdminModule\Components\CategoryEditForm\CategoryEditFormFactory
 	- App\AdminModule\Components\ProductEditForm\ProductEditFormFactory
@@ -34,6 +35,7 @@ services:
 	- App\FrontModule\Components\UserLoginForm\UserLoginFormFactory
 	- App\FrontModule\Components\UserRegistrationForm\UserRegistrationFormFactory
 	- App\FrontModule\Components\OrderForm\OrderFormFactory
+
 	forgottenPasswordFormFactory:
 	    implement: App\FrontModule\Components\ForgottenPasswordForm\ForgottenPasswordFormFactory
 	    setup:
