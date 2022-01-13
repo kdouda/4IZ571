@@ -13,6 +13,7 @@ use Nette;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Multiplier;
 use Nette\Security;
+use Tracy\Debugger;
 
 /**
  * Class ProductPresenter
@@ -36,6 +37,10 @@ class ProductPresenter extends BasePresenter
 
     /** @persistent */
     public $category;
+
+    /** @persistent  */
+    public $page = 1;
+
     /**
      * @var Security\User
      */
@@ -43,7 +48,6 @@ class ProductPresenter extends BasePresenter
 
     public function injectUser(Security\User $user)
     {
-
         $this->currentUser = $user;
     }
 
@@ -94,7 +98,7 @@ class ProductPresenter extends BasePresenter
     /**
      * Akce pro vykreslení přehledu produktů
      */
-    public function renderList(int $category = null, int $limit = null, int $offset = null): void
+    public function renderList(int $category = null): void
     {
         $categories = [];
 
@@ -106,8 +110,17 @@ class ProductPresenter extends BasePresenter
             $categories[] = $category;
         }
 
-        //TODO tady by mělo přibýt filtrování podle kategorie, stránkování atp.
-        $this->template->products = $this->productsFacade->filterAllBy($productsQuery, $categories, $limit, $offset);
+        $limit = 5;
+
+        $pagination = new Nette\Utils\Paginator();
+        $pagination->setItemCount($this->productsFacade->countAllBy([], $categories));
+        $pagination->setPage($this->page);
+        $pagination->setItemsPerPage($limit);
+
+        $offset = $pagination->getOffset();
+
+        $this->template->paginator = $pagination;
+        $this->template->products = $this->productsFacade->filterAllBy($productsQuery, $categories, $offset, $limit);
         $this->template->categories = $this->categoriesFacade->findCategories(['order' => 'title']);
         $this->template->currentCategory = $category;
         $this->template->canEdit = $this->currentUser->isLoggedIn() && $this->currentUser->isAllowed($this->template->products[0], 'edit');

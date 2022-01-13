@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3
+class ComposerStaticInitc6c12d965a631e378496266d91f3d0c6
 {
     public static $files = array (
         'd507e002f7fce7f0c6dbf1f22edcb902' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/functions.php',
@@ -109,6 +109,7 @@ class ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3
 
     public static $classMap = array (
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Dibi\\Bridges\\Nette\\DibiExtension22' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Bridges/Nette/DibiExtension22.php',
         'Dibi\\Bridges\\Tracy\\Panel' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Bridges/Tracy/Panel.php',
         'Dibi\\Connection' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Connection.php',
@@ -592,10 +593,10 @@ class ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb1b97e29a9cf0faeec5829dab71133a3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc6c12d965a631e378496266d91f3d0c6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc6c12d965a631e378496266d91f3d0c6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc6c12d965a631e378496266d91f3d0c6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc6c12d965a631e378496266d91f3d0c6::$classMap;
 
         }, null, ClassLoader::class);
     }

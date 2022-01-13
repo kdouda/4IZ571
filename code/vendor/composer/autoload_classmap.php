@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Dibi\\Bridges\\Nette\\DibiExtension22' => $vendorDir . '/dibi/dibi/src/Dibi/Bridges/Nette/DibiExtension22.php',
     'Dibi\\Bridges\\Tracy\\Panel' => $vendorDir . '/dibi/dibi/src/Dibi/Bridges/Tracy/Panel.php',
     'Dibi\\Connection' => $vendorDir . '/dibi/dibi/src/Dibi/Connection.php',

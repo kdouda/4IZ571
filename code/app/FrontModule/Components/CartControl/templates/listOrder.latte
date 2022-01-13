@@ -1,0 +1,71 @@
+{varType App\Model\Entities\Cart $cart}
+
+{var $cartCount = count($cart->items)}
+
+<div class="container">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Produkt
+                </th>
+
+                <th>
+                    Název
+                </th>
+
+                <th>
+                    Počet kusů
+                </th>
+
+                <th>
+                    Jednotková cena
+                </th>
+
+                <th>
+                    Celková cena
+                </th>
+            </tr>
+        </thead>
+
+        {var $totalPrice = 0}
+        {var $totalCount = 0}
+
+        {foreach $cart->items as $item}
+            {php $totalPrice += $item->count * $item->product->price}
+            {php $totalCount += $item->count}
+
+            <tr>
+                <th>
+                    {if $item->product->files}
+                        <img src="{$item->product->files[0]->getRelativePath()|thumbnail:100,100}">
+                        {else}
+                        <img class="card-image" style="max-width: 100px; max-height: 100px;" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png" />
+                    {/if}
+                </th>
+                <th>
+                    {$item->product->title}
+                </th>
+                <td>{$item->count}</td>
+                <td>{$item->product->price|number:2} Kč</td>
+                <td>{$item->count * $item->product->price|number:2} Kč</td>
+            </tr>
+        {/foreach}
+
+        <tfoot>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                </th>
+                <td>{$totalCount}</td>
+                <td></td>
+                <td>{$totalPrice|number:2} Kč</td>
+                <td>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>

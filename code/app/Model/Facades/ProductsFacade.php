@@ -61,6 +61,17 @@ class ProductsFacade
         return $this->productRepository->filterAllBy($params, $categories, $offset, $limit);
     }
 
+    /**
+     * @param null|array $whereArr
+     * @param null|int $offset
+     * @param null|int $limit
+     * @return integer
+     */
+    public function countAllBy(array $params = null, $categories = []) : int
+    {
+        return $this->productRepository->countAllBy($params, $categories);
+    }
+
 
     /**
      * Metoda pro zjištění počtu produktů

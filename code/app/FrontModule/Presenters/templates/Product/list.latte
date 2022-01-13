@@ -1,7 +1,8 @@
 {varType App\Model\Entities\Product[] $products}
 {varType App\Model\Entities\Category[] $categories}
-{block content}
+{varType Nette\Utils\Paginator $paginator}
 
+{block content}
 
 
 <div class="row">
@@ -12,25 +13,31 @@
             </div>
 
             <div class=" dropdown d-md-none">
-                <button type="button" class="btn-block border-0 dropdown-toggle " data-toggle="dropdown" id="5b4f95e9a64b5" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn-block border-0 dropdown-toggle " data-toggle="dropdown"
+                        id="5b4f95e9a64b5" aria-haspopup="true" aria-expanded="false">
                     Kategorie
                 </button>
-                <div class="dropdown-menu" aria-labelledby="5b4f95e9a64b5" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(63px, 31px, 0px);">
-                    <a href="{plink this category => null}" class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
+                <div class="dropdown-menu" aria-labelledby="5b4f95e9a64b5" x-placement="bottom-start"
+                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(63px, 31px, 0px);">
+                    <a href="{plink this category => null}"
+                       class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
 
                     {foreach $categories as $category}
                         {* z hlediska SEO by bylo výrazně lepší, aby místo CategoryID zde byl nějaký string - webalizovaný *}
-                        <a href="{plink this category => $category->categoryId}"  class="{if $currentCategory == $category->categoryId}active{/if} list-group-item list-group-item-action">{$category->title}</a>
+                        <a href="{plink this category => $category->categoryId}"
+                           class="{if $currentCategory == $category->categoryId}active{/if} list-group-item list-group-item-action">{$category->title}</a>
                     {/foreach}
                 </div>
             </div>
 
             <div class="list-group list-group-flush d-none d-md-flex">
-                <a href="{plink this category => null}" class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
+                <a href="{plink this category => null}"
+                   class="{if !$currentCategory}active{/if} list-group-item list-group-item-action">Vše</a>
 
                 {foreach $categories as $category}
                     {* z hlediska SEO by bylo výrazně lepší, aby místo CategoryID zde byl nějaký string - webalizovaný *}
-                    <a href="{plink this category => $category->categoryId}"  class="{if $currentCategory == $category->categoryId}active{/if} list-group-item list-group-item-action">{$category->title}</a>
+                    <a href="{plink this category => $category->categoryId}"
+                       class="{if $currentCategory == $category->categoryId}active{/if} list-group-item list-group-item-action">{$category->title}</a>
                 {/foreach}
             </div>
         </div>
@@ -42,6 +49,40 @@
                 {control productCard $product}
             {/foreach}
         </article>
+
+
+        {if $paginator->pageCount}
+            <article>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {if $paginator->page == 1}disabled{/if}">
+                            {if $paginator->page >= 1}
+                                <a class="page-link" href="{plink this page => $paginator->page - 1}">Previous</a>
+                                {else}
+                                <span class="page-link">Previous</span>
+                            {/if}
+
+                        </li>
+
+                        {for $i = 1; $i <= $paginator->pageCount; $i++}
+                            <li class="page-item {if $paginator->page == $i}active{/if}">
+                                <a class="page-link" href="{plink this page => $i}">
+                                    {$i}
+                                </a>
+                            </li>
+                        {/for}
+
+                        <li class="page-item {if $paginator->page == $paginator->pageCount }disabled{/if}">
+                            {if $paginator->page != $paginator->pageCount}
+                                <a class="page-link" href="{plink this page => $paginator->page + 1}">Next</a>
+                            {else}
+                                <a class="page-link" href="#">Next</a>
+                            {/if}
+                        </li>
+                    </ul>
+                </nav>
+            </article>
+        {/if}
     </section>
 </div>
 

@@ -50,6 +50,13 @@ class CartControl extends Control{
         $template->render();
     }
 
+    public function renderCheckout() : void
+    {
+        $template=$this->prepareTemplate('listOrder');
+        $template->cart = $this->cart;
+        $template->render();
+    }
+
     public function handleRemove($cartItemId){
         $this->cart->updateCartItems();
         try{
@@ -116,6 +123,11 @@ class CartControl extends Control{
      */
     public function deleteOldCarts():void {
         $this->cartFacade->deleteOldCarts();
+    }
+
+    public function hasAnyItemsInCart() : bool
+    {
+        return !empty($this->cart->items);
     }
 
     /**

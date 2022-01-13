@@ -2,6 +2,8 @@
 
 namespace App\Model\Repositories;
 
+use Tracy\Debugger;
+
 /**
  * Class ProductRepository
  * @package App\Model\Repositories
@@ -22,6 +24,7 @@ class ProductRepository extends BaseRepository
     public function filterAllBy($whereArr = null, $categories = [], $offset = null, $limit = null)
     {
         $query = $this->connection->select('p.*')->from($this->getTable() . ' p');
+
         if (isset($whereArr['order'])) {
             $query->orderBy($whereArr['order']);
             unset($whereArr['order']);
@@ -45,6 +48,34 @@ class ProductRepository extends BaseRepository
         }
 
         return $this->createEntities(array_values($tmp));
+    }
+
+    /**
+     * @param null|array $whereArr
+     * @param null|int $offset
+     * @param null|int $limit
+     * @return int
+     */
+    public function countAllBy($whereArr = null, $categories = []) : int
+    {
+        $query = $this->connection->select('count(distinct p.product_id)')->from($this->getTable() . ' p');
+
+        if ($whereArr != null && count($whereArr) > 0) {
+            $query = $query->where($whereArr);
+        }
+
+        if ($categories) {
+            $query->innerJoin('product_category pc')
+                ->on('pc.product_id = p.product_id AND pc.category_id IN (?)', $categories);
+        }
+
+        $res = $query->fetchSingle();
+
+        if ($res) {
+            return (int)$res;
+        }
+
+        return 0;
     }
 
 }
