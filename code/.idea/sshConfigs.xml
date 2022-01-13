@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="eshop.0x0c.space" id="08923fb5-5950-4a49-b8f1-0258dcf4d9ba" port="22" nameFormat="DESCRIPTIVE" username="remote" />
+      <sshConfig authType="PASSWORD" host="eshop.0x0c.space" id="08923fb5-5950-4a49-b8f1-0258dcf4d9ba" port="22" nameFormat="DESCRIPTIVE" username="remote" useOpenSSHConfig="true" />
     </configs>
   </component>
 </project>

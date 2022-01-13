@@ -157,6 +157,9 @@ class UserPresenter extends BasePresenter{
     $form->onCancel[]=function()use($form){
       $this->redirect('Homepage:default');
     };
+      $form->onFacebook[]=function()use($form){
+          $this->redirect('User:FacebookLogin');
+      };
     return $form;
   }
 

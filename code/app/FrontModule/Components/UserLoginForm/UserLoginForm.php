@@ -24,6 +24,8 @@ class UserLoginForm extends Form{
   public $onFinished = [];
   /** @var callable[] $onCancel */
   public $onCancel = [];
+    /** @var callable[] $onFacebook */
+    public $onFacebook = [];
 
   /**
    * UserRegistrationForm constructor.
@@ -42,14 +44,20 @@ class UserLoginForm extends Form{
     $password=$this->addPassword('password','Heslo')
       ->setRequired('Zadejte své heslo');
 
-    $this->addSubmit('ok','přihlásit se')
-      ->onClick[]=function(SubmitButton $button){
-        $this->onFinished();
-      };
+
     $this->addSubmit('storno','zrušit')
       ->setValidationScope([])
       ->onClick[]=function(SubmitButton $button){
         $this->onCancel();
+      };
+      $this->addSubmit('facebook','FB Login')
+          ->setValidationScope([])
+          ->onClick[]=function(SubmitButton $button){
+          $this->onFacebook();
+      };
+      $this->addSubmit('ok','přihlásit se')
+          ->onClick[]=function(SubmitButton $button){
+          $this->onFinished();
       };
   }
 
