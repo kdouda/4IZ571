@@ -109,6 +109,14 @@ class OrderFacade
                                      ->groupBy('`order`.order_id');
     }
 
+    public function getGridDataSource()
+    {
+        return $this->orderRepository->getFluent()
+            ->select('SUM(ot.amount) AS num_products, SUM(ot.amount * ot.amount) as total_price')
+            ->innerJoin('order_item ot on ot.order_id = `order`.order_id')
+            ->groupBy('`order`.order_id');
+    }
+
     public function getGridDataSourceForOrder($order)
     {
         return $this->orderItemRepository->getFluent()
