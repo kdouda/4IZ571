@@ -19,7 +19,24 @@ use LeanMapper\Entity;
  * @property ProductDimension[] $dimensions m:belongsToMany(product_id:product_dimension)
  * @property File[] $files m:hasMany(product_id:product_images)
  */
-class Product extends Entity implements \Nette\Security\Resource{
+class Product extends Entity implements \Nette\Security\Resource
+{
+    /**
+     * Returns the value of a given dimension.
+     *
+     * @param Dimension $dimension
+     * @return string
+     */
+    public function getDimensionValue(Dimension $dimension) : string
+    {
+        foreach ($this->dimensions as $dim) {
+            if ($dimension->dimensionId === $dim->dimension->dimensionId) {
+                return $dim->value;
+            }
+        }
+
+        return "";
+    }
 
   /**
    * @inheritDoc

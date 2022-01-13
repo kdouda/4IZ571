@@ -1,5 +1,14 @@
 {varType App\Model\Entities\Product $product}
 {block content}
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{plink Product:list}">Produkty</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{$product->title}</li>
+    </ol>
+</nav>
+
 <section class="row {*row-cols-1 row-cols-sm-2 row-cols-md-3*} g-3 product-detail no-gutters">
         <div class="col-md-6 col-lg-6 col-sm-12">
             <div class="row">
@@ -73,11 +82,35 @@
                     </div>
                     <div class="row h-25">
                         <div class="col  m-1">
+                            <h4>{$product->price|number:2} Kč</h4>
 
+                            {if $isProductInComparison}
+                                <a class="btn btn-outline-primary btn-sm" href="{plink removeProductComparison! $product->productId}">
+                                    <i class="fa fa-plus"></i> Odebrat ze srovnání
+                                </a>
+                                {else}
+                                <a class="btn btn-outline-primary btn-sm" href="{plink addProductToComparison! $product->productId}">
+                                    <i class="fa fa-plus"></i> Přidat do srovnání
+                                </a>
+                            {/if}
                         </div>
                     </div>
                     <div class="row h-25">
                         <div class="col  m-1">
+                            {form "productCartForm-$product->productId"}
+                                Přidat do košíku
+
+                                <div class="input-group mb-3">
+                                    <label class="align-self-center mb-0 mr-2 justify-content-start">Počet kusů: </label>
+                                    <input type="text" class="form-control" style="max-width:40px" n:name="count">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit" n:name="ok"><i class="fa fa-shopping-cart"></i></button>
+                                    </div>
+                                </div>
+                            {/form}
+
+
+
                         </div>
                     </div>
                 </div>
