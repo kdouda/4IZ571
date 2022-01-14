@@ -4,6 +4,7 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\UserEditForm\UserEditForm;
 use App\AdminModule\Components\UserEditForm\UserEditFormFactory;
+use App\Model\Entities\Order;
 use App\Model\Facades\OrderFacade;
 use App\Model\Facades\UsersFacade;
 use Nette\Application\BadRequestException;
@@ -97,6 +98,9 @@ class OrderPresenter extends BasePresenter
              ->setSortable();
 
         $grid->addColumnText('state', 'Stav')
+             ->setRenderer(function ($row) {
+                 return Order::getStateName($row->state);
+             })
              ->setSortable();
 
         return $grid;

@@ -4,6 +4,7 @@ namespace App\FrontModule\Presenters;
 
 use App\FrontModule\Components\CartControl\CartControl;
 use App\FrontModule\Components\OrderForm\OrderFormFactory;
+use App\Model\Entities\Order;
 use App\Model\Facades\OrderFacade;
 use Tracy\Debugger;
 use Ublaboo\DataGrid\DataGrid;
@@ -50,7 +51,9 @@ class OrderPresenter extends BasePresenter
 
         $grid->addColumnText('last_modified', 'Poslední změna')->setSortable();
 
-        $grid->addColumnText('state', 'Stav')->setSortable();
+        $grid->addColumnText('state', 'Stav')->setRenderer(function ($row) {
+            return Order::getStateName($row->state);
+        })->setSortable();
 
         return $grid;
     }

@@ -25,9 +25,8 @@ class Order extends Entity implements \Nette\Security\Resource
     return 'Order';
   }
 
-  public function getStateString() : string
-  {
-      switch ($this->state) {
+  public static function getStateName(string $state) : string {
+      switch ($state) {
           case self::STATE_NEW:
               return 'Nový';
           case self::STATE_PROCESSED:
@@ -44,7 +43,6 @@ class Order extends Entity implements \Nette\Security\Resource
 
       return "";
   }
-
 
   public const STATE_NEW = 'new';
 
