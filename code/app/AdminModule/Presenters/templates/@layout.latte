@@ -21,16 +21,16 @@
 <body style="padding-top:4.5rem;">
 
 	<header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href="{plink Dashboard:default}">E-shop Admin</a>
+		<a class="navbar-brand" href="{plink :Front:Homepage:default}">E-shop Admin</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Navigace">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<nav class="collapse navbar-collapse" id="adminNavbar">
 			<ul class="navbar-nav mr-auto">
-				<li n:class="$presenter->isLinkCurrent('Dashboard:*')?active, nav-item">
-					<a class="nav-link" href="{plink Dashboard:default}">Dashboard</a>
-				</li>
+{*				<li n:class="$presenter->isLinkCurrent('Dashboard:*')?active, nav-item">*}
+{*					<a class="nav-link" href="{plink Dashboard:default}">Dashboard</a>*}
+{*				</li>*}
 				<li n:class="$presenter->isLinkCurrent('User:*')?active, nav-item" n:if="$user->isAllowed('Admin:User','default')">
 					<a class="nav-link" href="{plink User:default}">Uživatelé</a>
 				</li>
