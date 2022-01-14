@@ -18,42 +18,76 @@ use LeanMapper\Entity;
  */
 class Order extends Entity implements \Nette\Security\Resource
 {
-  /**
-   * @inheritDoc
-   */
-  function getResourceId():string{
-    return 'Order';
-  }
+    /**
+     * @inheritDoc
+     */
+    function getResourceId(): string
+    {
+        return 'Order';
+    }
 
-  public static function getStateName(string $state) : string {
-      switch ($state) {
-          case self::STATE_NEW:
-              return 'Nový';
-          case self::STATE_PROCESSED:
-              return 'Zpracovaný';
-          case self::STATE_PAID:
-              return 'Zaplacený';
-          case self::STATE_DELIVERING:
-              return 'Na cestě';
-          case self::STATE_DELIVERED:
-              return 'Doručeno';
-          case self::STATE_DELETED:
-              return 'Zrušeno';
-      }
+    /**
+     * Gets names of appropriate states.
+     * This should be handled using a translator, if we had one.
+     *
+     * @param string $state
+     * @return string
+     */
+    public static function getStateName(string $state): string
+    {
+        switch ($state) {
+            case self::STATE_NEW:
+                return 'Nový';
+            case self::STATE_PROCESSED:
+                return 'Zpracovaný';
+            case self::STATE_PAID:
+                return 'Zaplacený';
+            case self::STATE_DELIVERING:
+                return 'Na cestě';
+            case self::STATE_DELIVERED:
+                return 'Doručeno';
+            case self::STATE_DELETED:
+                return 'Zrušeno';
+        }
 
-      return "";
-  }
+        return "";
+    }
 
-  public const STATE_NEW = 'new';
+    /**
+     * Gets a key-value pairing of states.
+     *
+     * @return array
+     */
+    public static function getStates(): array
+    {
+        $states = [];
 
-  public const STATE_PROCESSED = 'processed';
+        foreach (self::STATES as $state) {
+            $states[$state] = self::getStateName($state);
+        }
 
-  public const STATE_PAID = 'paid';
+        return $states;
+    }
 
-  public const STATE_DELIVERING = 'delivering';
+    public const STATES = [
+        self::STATE_NEW,
+        self::STATE_PROCESSED,
+        self::STATE_PAID,
+        self::STATE_DELIVERING,
+        self::STATE_DELIVERED,
+        self::STATE_DELETED
+    ];
 
-  public const STATE_DELIVERED = 'delivered';
+    public const STATE_NEW = 'new';
 
-  public const STATE_DELETED = 'deleted';
+    public const STATE_PROCESSED = 'processed';
+
+    public const STATE_PAID = 'paid';
+
+    public const STATE_DELIVERING = 'delivering';
+
+    public const STATE_DELIVERED = 'delivered';
+
+    public const STATE_DELETED = 'deleted';
 
 }

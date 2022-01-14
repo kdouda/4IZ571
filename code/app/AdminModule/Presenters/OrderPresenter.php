@@ -2,6 +2,8 @@
 
 namespace App\AdminModule\Presenters;
 
+use App\AdminModule\Components\OrderStatusForm\OrderStatusForm;
+use App\AdminModule\Components\OrderStatusForm\OrderStatusFormFactory;
 use App\AdminModule\Components\UserEditForm\UserEditForm;
 use App\AdminModule\Components\UserEditForm\UserEditFormFactory;
 use App\Model\Entities\Order;
@@ -24,6 +26,9 @@ class OrderPresenter extends BasePresenter
     /** @var OrderFacade @inject */
     public $orderFacade;
 
+    /** @var OrderStatusFormFactory @inject */
+    public $orderStatusFormFactory;
+
     /**
      * Akce pro vykreslení seznamu produktů
      */
@@ -38,7 +43,9 @@ class OrderPresenter extends BasePresenter
     public function renderEdit(int $id): void
     {
         try {
-            $this->template->order = $this->orderFacade->getOrderById($id);
+            $this->template->order = $order = $this->orderFacade->getOrderById($id);
+            $form = $this->getComponent('orderStatusForm');
+            $form->setDefaults($order);
         } catch (\Exception $e) {
             $this->flashMessage('Tato objednávka neexistuje', 'danger');
             $this->redirect('Order:default');
@@ -104,5 +111,34 @@ class OrderPresenter extends BasePresenter
              ->setSortable();
 
         return $grid;
+    }
+
+    /**
+     * Formulář na editaci produktů
+     * @return OrderStatusForm
+     */
+    public function createComponentOrderStatusForm(): OrderStatusForm
+    {
+        $form = $this->orderStatusFormFactory->create();
+
+        $form->onCancel[] = function () {
+            $this->redirect('default');
+        };
+
+        $form->onFinished[] = function ($message = null) {
+            if (!empty($message)) {
+                $this->flashMessage($message);
+            }
+            $this->redirect('default');
+        };
+
+        $form->onFailed[] = function ($message = null) {
+            if (!empty($message)) {
+                $this->flashMessage($message, 'error');
+            }
+            $this->redirect('default');
+        };
+
+        return $form;
     }
 }

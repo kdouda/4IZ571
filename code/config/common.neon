@@ -31,6 +31,7 @@ services:
 	- App\AdminModule\Components\DimensionEditForm\DimensionEditFormFactory
 	- App\AdminModule\Components\ProductDimensionForm\ProductDimensionFormFactory
 	- App\AdminModule\Components\UserEditForm\UserEditFormFactory
+	- App\AdminModule\Components\OrderStatusForm\OrderStatusFormFactory
 
 	- App\FrontModule\Components\UserLoginForm\UserLoginFormFactory
 	- App\FrontModule\Components\UserRegistrationForm\UserRegistrationFormFactory
