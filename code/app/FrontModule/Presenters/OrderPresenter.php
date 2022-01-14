@@ -23,11 +23,21 @@ class OrderPresenter extends BasePresenter
         $form = $this->orderFormFactory->create();
 
         $form->onCancel[] = function () {
-          $this->redirect('Cart:default');
+            $this->redirect('default');
         };
 
-        $form->onFinished[] = function () {
+        $form->onFinished[] = function ($message = null) {
+            if (!empty($message)) {
+                $this->flashMessage($message);
+            }
             $this->redirect('Order:list');
+        };
+
+        $form->onFailed[] = function ($message = null) {
+            if (!empty($message)) {
+                $this->flashMessage($message, 'error');
+            }
+            $this->redirect('default');
         };
 
         return $form;
@@ -83,6 +93,11 @@ class OrderPresenter extends BasePresenter
     {
         try {
             $order = $this->orderFacade->getOrderById($id);
+
+            if (!$this->user->getAuthorizator()->isAllowed($this->user, $order)) {
+                $this->flashMessage('Tato objednávka neexistuje nebo není dostupná', 'error');
+                $this->redirect('Order:list');
+            }
         } catch (\Exception $e) {
             $this->flashMessage('Tato objednávka neexistuje nebo není dostupná', 'error');
             $this->redirect('Order:list');

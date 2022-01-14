@@ -35,6 +35,9 @@ class OrderForm extends Form
     public $onFinished = [];
     /** @var callable[] $onCancel */
     public $onCancel = [];
+    /** @var callable[] $onFailed */
+    public $onFailed = [];
+
 
     /** @var Nette\Security\User */
     private $user;
@@ -219,7 +222,7 @@ class OrderForm extends Form
 
             // send notification to owner, etc
 
-            $this->onFinished();
+            $this->onFinished('Objednávka byla úspěšně přidaná');
         };
 
         $buttonGroup =  $this->addSubmit('storno', 'zrušit')
