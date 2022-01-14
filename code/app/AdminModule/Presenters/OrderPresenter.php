@@ -85,15 +85,19 @@ class OrderPresenter extends BasePresenter
         $grid->addColumnText('create_date', 'Datum vytvoření')
             ->setSortable()
             ->setTemplate(__DIR__ . '/templates/Order/grid/dateCreated.latte')
-            ->setSort('desc');
+            ->setSort('DESC');
 
-        $grid->addColumnText('num_products', 'Počet produktů')->setSortable();
+        $grid->addColumnText('num_products', 'Počet produktů')
+             ->setSortable();
 
-        $grid->addColumnText('total_price', 'Cena')->setSortable();
+        $grid->addColumnText('total_price', 'Cena')
+             ->setSortable();
 
-        $grid->addColumnText('last_modified', 'Poslední změna')->setSortable();
+        $grid->addColumnText('last_modified', 'Poslední změna')
+             ->setSortable();
 
-        $grid->addColumnText('state', 'Stav')->setSortable();
+        $grid->addColumnText('state', 'Stav')
+             ->setSortable();
 
         return $grid;
     }

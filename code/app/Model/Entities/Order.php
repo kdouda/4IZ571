@@ -25,6 +25,27 @@ class Order extends Entity implements \Nette\Security\Resource
     return 'Order';
   }
 
+  public function getStateString() : string
+  {
+      switch ($this->state) {
+          case self::STATE_NEW:
+              return 'Nový';
+          case self::STATE_PROCESSED:
+              return 'Zpracovaný';
+          case self::STATE_PAID:
+              return 'Zaplacený';
+          case self::STATE_DELIVERING:
+              return 'Na cestě';
+          case self::STATE_DELIVERED:
+              return 'Doručeno';
+          case self::STATE_DELETED:
+              return 'Zrušeno';
+      }
+
+      return "";
+  }
+
+
   public const STATE_NEW = 'new';
 
   public const STATE_PROCESSED = 'processed';
