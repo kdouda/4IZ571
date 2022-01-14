@@ -43,6 +43,9 @@
 				<li n:class="$presenter->isLinkCurrent('Dimension:*')?active, nav-item" n:if="$user->isAllowed('Admin:Dimension','default')">
 					<a class="nav-link" href="{plink Dimension:default}">Dimenze</a>
 				</li>
+				<li n:class="$presenter->isLinkCurrent('Order:*')?active, nav-item" n:if="$user->isAllowed('Admin:Order','default')">
+					<a class="nav-link" href="{plink Order:default}">Objednávka</a>
+				</li>
 			</ul>
 
 			<ul class="navbar-nav ml-auto">

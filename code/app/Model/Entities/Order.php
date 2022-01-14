@@ -14,6 +14,7 @@ use LeanMapper\Entity;
  * @property \DateTimeInterface $lastModified
  * @property Address $deliveryAddress m:hasOne
  * @property Address $billingAddress m:hasOne
+ * @property OrderItem[] $items m:belongsToMany
  */
 class Order extends Entity implements \Nette\Security\Resource
 {

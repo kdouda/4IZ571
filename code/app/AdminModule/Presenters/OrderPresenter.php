@@ -20,12 +20,6 @@ use Tracy\Debugger;
  */
 class OrderPresenter extends BasePresenter
 {
-    /** @var UsersFacade @inject */
-    public $usersFacade;
-
-    /** @var UserEditFormFactory @inject */
-    public $userEditFormFactory;
-
     /** @var OrderFacade @inject */
     public $orderFacade;
 
@@ -36,6 +30,21 @@ class OrderPresenter extends BasePresenter
     {
 
     }
+
+    /**
+     * Akce pro vykreslení seznamu produktů
+     */
+    public function renderEdit(int $id): void
+    {
+        try {
+            $this->template->order = $this->orderFacade->getOrderById($id);
+        } catch (\Exception $e) {
+            $this->flashMessage('Tato objednávka neexistuje', 'danger');
+            $this->redirect('Order:default');
+            return;
+        }
+    }
+
     /**
      * Formulář na editaci produktů
      * @return ProductEditForm
@@ -69,14 +78,22 @@ class OrderPresenter extends BasePresenter
     {
         $grid = new DataGrid($this, $name);
 
-        $grid->setPrimaryKey('user_id');
-        $grid->setDataSource($this->orderFacade->getGridDataSource());
-        $grid->addColumnText('name', 'Jméno')->setSortable();
-        $grid->addColumnText('email', 'E-mail')->setSortable();
-        $grid->addColumnText('role_id', 'Role')->setSortable();
+        $grid->setPrimaryKey('order_id');
 
-        $grid->addColumnText('action', 'Akce')
-             ->setTemplate(__DIR__ . '/templates/User/grid/edit.latte');
+        $grid->setDataSource($this->orderFacade->getGridDataSource());
+
+        $grid->addColumnText('create_date', 'Datum vytvoření')
+            ->setSortable()
+            ->setTemplate(__DIR__ . '/templates/Order/grid/dateCreated.latte')
+            ->setSort('desc');
+
+        $grid->addColumnText('num_products', 'Počet produktů')->setSortable();
+
+        $grid->addColumnText('total_price', 'Cena')->setSortable();
+
+        $grid->addColumnText('last_modified', 'Poslední změna')->setSortable();
+
+        $grid->addColumnText('state', 'Stav')->setSortable();
 
         return $grid;
     }

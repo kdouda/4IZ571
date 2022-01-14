@@ -1,0 +1,73 @@
+{varType App\Model\Entities\Order $order}
+
+{block title}Editace objednávky{/block}
+
+{block content}
+
+<div class="row">
+
+    <div class="col">
+        <h3>Fakturační adresa</h3>
+        {include "helper/address.latte", address => $order->billingAddress}
+    </div>
+
+    <div class="col">
+        <h3>Dodací adresa</h3>
+        {include "helper/address.latte", address => $order->deliveryAddress}
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <h3>Zboží</h3>
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>Obrázek</th>
+                    <th>Název</th>
+                    <th>Počet kusů</th>
+                    <th>Jednotková cena</th>
+                    <th>Celková cena</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                {foreach $order->items as $orderItem}
+                    <tr>
+                        <td>
+                            {if $orderItem->product->files}
+                                <img src="{$orderItem->product->files[0]->getRelativePath()|thumbnail:200,200}">
+                            {/if}
+                        </td>
+
+                        <td>
+                            <a href="{plink :Front:Product:show $orderItem->product->url}">
+                                {$orderItem->product->title}
+                            </a>
+                        </td>
+
+                        <td>
+                            {$orderItem->amount}
+                        </td>
+
+                        <td>
+                            {$orderItem->unitPrice|number:2} Kč
+                        </td>
+
+                        <td>
+                            {($orderItem->amount * $orderItem->unitPrice)|number:2} Kč
+                        </td>
+
+                    </tr>
+                {/foreach}
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
