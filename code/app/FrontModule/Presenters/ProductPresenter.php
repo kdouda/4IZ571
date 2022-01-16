@@ -173,7 +173,7 @@ class ProductPresenter extends BasePresenter
             $categories[] = $category;
         }
 
-        $limit = 5;
+        $limit = 6;
 
         $pagination = new Nette\Utils\Paginator();
         $pagination->setItemCount($this->productsFacade->countAllBy([], $categories));

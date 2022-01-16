@@ -92,9 +92,12 @@ class CategoryEditForm extends Form
                 $dimensions[] = $this->dimensionsFacade->getDimension($dimensionId);
             }
 
-            $category->replaceAllDimensions($dimensions);
             $category->assign($values, ['title', 'description']);
             $this->categoriesFacade->saveCategory($category);
+
+            $category->replaceAllDimensions($dimensions);
+            $this->categoriesFacade->saveCategory($category);
+
             $this->setValues(['categoryId' => $category->categoryId]);
             $this->onFinished('Kategorie byla uložena.');
         };
